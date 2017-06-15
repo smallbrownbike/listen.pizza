@@ -10,7 +10,8 @@ const express = require('express'),
 			LocalStrategy = require('passport-local');
 
 
-mongoose.connect('mongodb://localhost/collections');
+//mongoose.connect('mongodb://localhost/collections');
+mongoose.connect('***REMOVED***');
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
@@ -123,7 +124,13 @@ app.get('/register', isLoggedInLogin, (req, res) => {
 	res.render('registerClosed')
 })
 
-/*app.post('/register', isLoggedInLogin, (req, res) => {
+/// comment out
+
+/*app.get('/register', isLoggedInLogin, (req, res) => {
+	res.render('register')
+})
+
+app.post('/register', isLoggedInLogin, (req, res) => {
 	var newUser = new User({email: req.body.email, username: req.body.username});
 	User.register(newUser, req.body.password, (err, user) => {
 		if(err){
@@ -135,6 +142,7 @@ app.get('/register', isLoggedInLogin, (req, res) => {
 		})
 	})
 })*/
+///
 
 app.get('/login', isLoggedInLogin, (req, res) => {
 	res.render('login')
@@ -171,3 +179,6 @@ function isLoggedInLogin(req, res, next){
 app.listen(process.env.PORT, process.env.IP, function(){
 	console.log('Server running')
 });
+/*app.listen('3000', function(){
+	console.log('Server running')
+});*/
