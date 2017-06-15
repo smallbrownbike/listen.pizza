@@ -6,7 +6,7 @@ searchSegment = document.getElementById('searchSegment');
 
 search.focus();
 
-search.addEventListener('keyup', (e) => {
+search.addEventListener('keypress', (e) => {
 	if(e.which === 13){
 		window.location.href = '/artist/search/' + search.value;
 	}

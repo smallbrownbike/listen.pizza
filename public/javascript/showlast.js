@@ -55,7 +55,7 @@ function trackListener() {
 				artist: arr.album.artist,
 				image: arr.album.image[3]['#text']				
 			};
-			xhr.open("POST", "https://localhost:3000/collection", true);
+			xhr.open("POST", "/collection", true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.send(JSON.stringify(params));
 		})
