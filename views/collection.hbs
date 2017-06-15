@@ -1,0 +1,36 @@
+<link rel='stylesheet' href='/css/main.css'>
+<title>Collection</title>
+
+
+<div id='albumCollection' class='ui container'>
+	<div class='ui container'>
+		<div id='sortAndDelete'>
+			Sorted by: <strong><span id='artistSort'>Added</span></strong>
+			<span id='edit'>Edit</span>
+		</div>
+	</div>
+	<div id='mainAlbumSegment' class='ui container segment'>
+		<div id='albumList' class=''>
+			{{#each album}}
+			
+			<div id='card' class='card'>
+				<a class='image' id='imageContainer' href="/album/{{{this.albums.artist}}}+{{{this.albums.title}}}">
+					<img id='image' class='img' title='{{{this.albums.title}}}' src='{{{this.albums.image}}}'>
+				</a>
+				<div id='cardInfo' class='ui center aligned container'>
+					<h4 id='cardArtist'>{{{this.albums.artist}}}</h4>
+					<h7 id='title'>{{{this.albums.title}}}</h7>
+				</div>
+				<p id = 'added'>{{{this.albums.added}}}</p>
+				
+				
+				<form id='trash' action='/collection/{{{this.albums._id}}}?_method=DELETE' method='POST'>
+					<button id='invisButton' class='ui mini red button'>Delete</button>
+				</form>
+			</div>
+			{{/each}}
+		</div>
+	</div>
+</div>
+<script src='/javascript/albums.js'></script>
+<script src='/javascript/searchListener.js'></script>

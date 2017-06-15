@@ -1,0 +1,181 @@
+#hidden{
+	display: none;
+}
+img{
+	margin: 0 auto;
+	border-radius: 5px;
+	display: inline;
+	max-width: 300px;
+	max-height: 300px;
+}
+#readButton{
+	width: 100%;
+	border-radius: 0 0 5px 5px;
+}
+#form{
+	margin-top: 25px;
+	width: 400px;
+}
+.basic.button{
+	margin-top: 5px;
+}
+#reviews{
+	margin-top: 15px;
+	margin-bottom: 15px;
+	width: 600px;
+}
+#delete{
+	width: 100%;
+	border-radius: 0 0 5px 5px;
+}
+.ui.text{
+	max-width: 500px;
+	margin: 0 auto;
+}
+#card {
+    /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+#card:hover{
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+#tags{
+	margin-top: 15px;
+}
+#tag{
+	margin-top: 5px;
+}
+#yt{
+	float: right
+}
+#playButton{
+	width: 100%;
+}
+#bg {
+		display: block;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+		background-attachment: fixed;
+    filter:blur(8px);  
+}
+#mainSeg{
+	
+}
+
+#playlist{
+	width: 100%;
+	margin-top: 15px;
+}
+#add{
+	display: none;
+}
+#addButton{
+	margin-top: 15px;
+	width: 100%;
+}
+#invisForm{
+	display: none;
+}
+#searchReadButton{
+	width: 100%;
+	border-radius: 0 0 5px 5px;
+}
+#searchSegment{
+
+	
+}
+#segmentWrapper{
+	margin-top: 50px;
+	display: none;
+}
+#cardInfo{
+	padding: 10px 0 10px 0;
+	bottom: 0;
+	margin: auto 0 auto 0px;
+}
+
+#buttons{
+	
+}
+#mainAlbumSegment{
+	margin-top: 0;
+}
+#trash{
+	position: absolute;
+	right: 0;
+	display: none;
+}
+#invisButton{
+	margin-top: 3px;
+}
+#search{
+	
+}
+.left, .icon, .input{
+	margin-left: 10px;
+}
+
+#artistSort{
+	cursor: pointer;
+}
+#added{
+	display: none;
+}
+#edit{
+	float: right;
+	color: red;
+	cursor: pointer;
+}
+#albumCollection{
+	margin: 15px 0 15px 0;
+}
+#sortAndDelete{
+	margin-bottom: 3px;
+}
+#cardArtist{
+	margin-bottom: 2px;
+}
+#imageContainer{
+	display: inline-block;
+}
+#albumArtist{
+	font-size: 1.5em;
+	width: 100%;
+	margin: 15px 0 15px 0;
+}
+#menu{
+	background-color: white;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-bottom: solid 1px lightgray;
+}
+body{
+	padding-top: 50px;
+}
+#home, #logout{
+	color: rgba(0, 0, 0, 0.6);
+}
+#home:hover{
+	background-color: transparent;
+	color: rgba(0, 0, 0, 0.8);
+}
+#logout:hover{
+	background-color: transparent;
+	color: rgba(0, 0, 0, 0.8);
+}
+#registerClosed{
+	width: 400px;
+	margin: 25px auto;
+}
+#noMusic{
+	margin: 25px auto 25px;
+}

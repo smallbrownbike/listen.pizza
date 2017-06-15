@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.css'>
+	</head>
+	
+		<div id='menu' class="ui top fixed secondary menu">
+			<div class='ui container'>
+				
+				{{#if currentUser}}
+				<a id='home' class='left item' href='/'>Home</a>
+				<div id='searchSegment' class="ui transparent left icon input">
+					<input id='search' type="text" placeholder="Search...">
+					<i class="search icon"></i>
+				</div>
+					<a id='logout' class='right item' href='/logout'>Logout</a>
+				{{else}}
+				<a id='logout' class='left item'  href='/login'>Login</a>
+				<div class='right item'>
+					<a id='logout'  href='/register'>Register</a>
+					{{/if}}
+				</div>
+			</div>
+		</div>
+	
+	<body id='body'>
+		
+
+		
+		
+		{{{body}}}
+	</body>
+	
+</html>
