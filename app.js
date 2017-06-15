@@ -10,7 +10,7 @@ const express = require('express'),
 			LocalStrategy = require('passport-local');
 
 
-mongoose.connect('mongodb://localhost/the_jangle_index');
+mongoose.connect('mongodb://localhost/collections');
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
