@@ -1,4 +1,4 @@
-const tags = document.getElementById('tags'),
+var tags = document.getElementById('tags'),
 title = document.querySelector('title'),
 bg = document.getElementById('bg'),
 loader = document.getElementById('loader'),

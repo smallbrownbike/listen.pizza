@@ -1,6 +1,6 @@
 
 
-const searchBar = document.getElementById('search'),
+var searchBar = document.getElementById('search'),
 albumList = document.getElementById('albumList'),
 searchSegment = document.getElementById('searchSegment');
 
