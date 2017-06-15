@@ -55,7 +55,7 @@ function trackListener() {
 				artist: arr.album.artist,
 				image: arr.album.image[3]['#text']				
 			};
-			xhr.open("POST", "http://localhost:3000/collection", true);
+			xhr.open("POST", "https://localhost:3000/collection", true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.send(JSON.stringify(params));
 		})
@@ -123,7 +123,7 @@ function ytError(err) {
 var xhr = new XMLHttpRequest();
 xhr.onload = trackListener;
 xhr.onerror = trackError;
-xhr.open('get', 'http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=***REMOVED***&artist=' + lastAlbum[0] + '&album=' + lastAlbum[1] +'&format=json');
+xhr.open('get', 'https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=***REMOVED***&artist=' + lastAlbum[0] + '&album=' + lastAlbum[1] +'&format=json');
 xhr.send();
 	
 function youtube(i){

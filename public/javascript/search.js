@@ -30,7 +30,7 @@ function searchError(err){
 var xhr = new XMLHttpRequest();
 xhr.onload = searchListener;
 xhr.onerror = searchError;
-xhr.open('get', 'http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=' + decodeURI(window.location.pathname.slice(15)) + '&api_key=***REMOVED***&format=json');
+xhr.open('get', 'https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=' + decodeURI(window.location.pathname.slice(15)) + '&api_key=***REMOVED***&format=json');
 xhr.send();
 
 function showContent(data){
