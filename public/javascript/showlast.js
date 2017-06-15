@@ -1,6 +1,6 @@
 const tags = document.getElementById('tags'),
 title = document.querySelector('title'),
-body = document.getElementById('bg'),
+bg = document.getElementById('bg'),
 loader = document.getElementById('loader'),
 review = document.getElementById('review'),
 playlist = document.getElementById('playlist');
@@ -68,7 +68,7 @@ function trackListener() {
 	var img = arr.album.image[3]['#text'];
 	///
 	image.innerHTML = '<img class="ui image" src="' + img + '">';
-	body.style.backgroundImage = 'url(' + img + ')';
+	bg.style.backgroundImage = 'url(' + img + ')';
 	arr.album.tags.tag.forEach((i) => {
 		tags.innerHTML += '<a target="_blank" id="tag" href="' + i.url + '" class="ui tag label">' + i.name + '</a>'
 	})

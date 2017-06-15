@@ -1,19 +1,19 @@
 
 
-const search = document.getElementById('search'),
+const searchBar = document.getElementById('search'),
 albumList = document.getElementById('albumList'),
 searchSegment = document.getElementById('searchSegment');
 
-search.focus();
+searchBar.focus();
 
-search.addEventListener('keypress', (e) => {
+searchBar.addEventListener('keypress', (e) => {
 	if(e.which === 13){
-		window.location.href = '/artist/search/' + search.value;
+		window.location.href = '/artist/search/' + searchBar.value;
 	}
 })
 
 searchSegment.addEventListener('click', (e) => {
-	search.focus();
+	searchBar.focus();
 })
 
 /*
