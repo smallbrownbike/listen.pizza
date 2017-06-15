@@ -168,6 +168,6 @@ function isLoggedInLogin(req, res, next){
 	}
 }
 
-app.listen('3000', (req, res) => {
-	console.log('server started')
+app.listen(process.env.PORT, process.env.IP, function(){
+	console.log('Server running')
 });
