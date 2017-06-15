@@ -64,11 +64,7 @@ img{
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-		background-attachment: fixed;
     filter:blur(8px);  
-}
-#mainSeg{
-	
 }
 
 #playlist{
@@ -89,10 +85,6 @@ img{
 	width: 100%;
 	border-radius: 0 0 5px 5px;
 }
-#searchSegment{
-
-	
-}
 #segmentWrapper{
 	margin-top: 50px;
 	display: none;
@@ -102,23 +94,17 @@ img{
 	bottom: 0;
 	margin: auto 0 auto 0px;
 }
-
-#buttons{
-	
-}
 #mainAlbumSegment{
 	margin-top: 0;
 }
 #trash{
-	position: absolute;
-	right: 0;
+	
 	display: none;
 }
 #invisButton{
-	margin-top: 3px;
-}
-#search{
-	
+	height: 35px;
+	width: 100%;
+	border-radius: 0 0 5px 5px;
 }
 .left, .icon, .input{
 	margin-left: 10px;
@@ -177,5 +163,6 @@ body{
 	margin: 25px auto;
 }
 #noMusic{
+	padding: 15px 15px 15px 15px;
 	margin: 25px auto 25px;
 }

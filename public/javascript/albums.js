@@ -80,7 +80,7 @@ for(var i=0; i < added.length; i++){
 }
 
 
-console.log(sortArtists)
+
 ///sort added
 for(var i = 0; i<artists.length; i++){
 	sortAdded.push([added.item(i).textContent]);
@@ -95,7 +95,7 @@ for(var i = 0; i<artists.length; i++){
 	sortLowerCase[i].push(title.item(i).textContent.toLowerCase());
 	sortLowerCase[i].push(image.item(i).src);
 }
-console.log(sortLowerCase)
+
 
 
 
@@ -126,7 +126,7 @@ search.addEventListener('keyup', (e) => {
 				albumList.innerHTML = ''
 				for(var i=0;i<results.length;i++){
 					var trashId = results[i][4];
-					console.log(trashId)
+					
 					albumList.innerHTML += "<div id='card' class='card'><a class='image' id='imageContainer' href=\'/album/" + encodeURIComponent(results[i][0].replace(/[!'()*]/g, escape)) + "+" + encodeURIComponent(results[i][1].replace(/[!'()*]/g, escape)) + "\'><img id='image' class='img' title='" + results[i][1] + "' src='" + results[i][2] + "'></a><div id='cardInfo' class='ui center aligned container'><h4 id='cardArtist'>" + results[i][0] + "</h4><h7 id='title'>" + results[i][1] + "</h7></div><form id='trash' action='/collection/" + trashId + "?_method=DELETE' method='POST'><button id='invisButton' class='ui mini red button'>Delete</button></form></div>"		 
 				};
 				detect();
@@ -143,7 +143,7 @@ search.addEventListener('keyup', (e) => {
 
 edit.addEventListener('click', (e) => {
 	trash = document.querySelectorAll('#trash')
-	console.log('click')
+	
 	if(trash[0].style.display === ''){
 		for(var i=0;i<trash.length;i++){
 		trash[i].style.display = 'block';
