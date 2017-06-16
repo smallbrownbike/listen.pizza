@@ -50,7 +50,7 @@ function trackListener() {
 			add.style.display = 'none';
 			var xhr = new XMLHttpRequest();
 			var params = {
-				added: Date(),
+				added: Date.now(),
 				title: arr.album.name,
 				artist: arr.album.artist,
 				image: arr.album.image[3]['#text']				
@@ -127,7 +127,7 @@ xhr.open('get', 'https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key
 xhr.send();
 	
 function youtube(i){
-	var search = encodeURIComponent(artist.textContent + ' ' + tracks[i]);
+	var search = encodeURIComponent(artist.textContent + ' ' + tracks[i].replace('/', ' '));
 	var xhr = new XMLHttpRequest();
 	xhr.onload = ytListener;
 	xhr.onerror = ytError;
@@ -137,7 +137,7 @@ function youtube(i){
 
 
 function getYoutube(i){
-	if(i<=tracks.length){
+	if(i<tracks.length){
 		console.log('Getting tracks')
 		youtube(i)
 	} else {
