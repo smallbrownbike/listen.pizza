@@ -64,7 +64,7 @@ function trackListener() {
 	album.textContent = arr.album.name;
 	///set page title
 	
-	title.textContent = artist.textContent + ' - ' + album.textContent;
+	title.textContent = artist.textContent + album.textContent;
 	var img = arr.album.image[3]['#text'];
 	///
 	image.innerHTML = '<img class="ui image" src="' + img + '">';
