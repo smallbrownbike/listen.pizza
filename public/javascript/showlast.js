@@ -131,7 +131,7 @@ function youtube(i){
 	var xhr = new XMLHttpRequest();
 	xhr.onload = ytListener;
 	xhr.onerror = ytError;
-	xhr.open('get', 'https://www.googleapis.com/youtube/v3/search?q=' + search + '&maxResults=1&part=snippet&key=AIzaSyBgCx9N47D4w1PoL9rC0YTvvxVU-PsDBEk');
+	xhr.open('get', 'https://www.googleapis.com/youtube/v3/search?q=' + search + '&maxResults=1&part=snippet&key=***REMOVED***');
 	xhr.send();
 }
 
