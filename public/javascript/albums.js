@@ -41,8 +41,6 @@ for(var i = 0; i<imageContainer.length; i++){
 	imageContainer.item(i).setAttribute('href', '/album/' + encodeURIComponent(href[0]) + '+' + encodeURIComponent(href[1]))
 }
 
-console.log(imageContainer)
-
 if(!albumList.innerHTML.trim()){
 	albumList.innerHTML = '<div id="noMusic"><h2>Where\'s all your music?</h2><p>Use the search bar to find your favorite albums and add them to your collection.</p></div>';
 	sortAndDelete.style.display='none';
