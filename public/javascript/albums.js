@@ -6,6 +6,7 @@ links = document.getElementsByTagName('a'),
 added = document.getElementsByTagName('p'),
 buttons = document.getElementById('buttons'),
 edit = document.getElementById('edit'),
+imageContainer = document.querySelectorAll('#imageContainer'),
 sortAndDelete = document.getElementById('sortAndDelete'),
 trash = document.querySelectorAll('#trash'),
 artistSort = document.getElementById('artistSort'),
@@ -34,6 +35,13 @@ function WidthChange(mq) {
     albumList.setAttribute('class', 'ui two cards')
   }
 }
+
+for(var i = 0; i<imageContainer.length; i++){
+	var href = imageContainer.item(i).getAttribute('href').slice('7').split('+');
+	imageContainer.item(i).setAttribute('href', '/album/' + encodeURIComponent(href[0]) + '+' + encodeURIComponent(href[1]))
+}
+
+console.log(imageContainer)
 
 if(!albumList.innerHTML.trim()){
 	albumList.innerHTML = '<div id="noMusic"><h2>Where\'s all your music?</h2><p>Use the search bar to find your favorite albums and add them to your collection.</p></div>';
