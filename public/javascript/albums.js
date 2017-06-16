@@ -53,7 +53,7 @@ for(var i = 0; i<artistList.length; i++){
 	sortArtists[i].push(title.item(i).textContent);
 	sortArtists[i].push(image.item(i).src);
 	sortArtists[i].push(added.item(i).textContent);
-	sortArtists[i].push(trash.item(i).action.slice(28, -15))
+	sortArtists[i].push(trash.item(i).action.slice(33, -15))
 }
 
 ////sort
