@@ -1,18 +1,40 @@
-<link rel='stylesheet' href='/css/main.css'>
+<link rel='stylesheet' href='/css/search.css'>
 <title>Search</title>
 
 <div id='searchContainer' class='ui container'>
 	<div class='ui container'>
 		<div>
-			<strong><span id='searchArtist'>Albums</span></strong>
-			<span id='expand'>Expand+</span>
+			<strong><span id='expandArtist' class='expand'>Albums <a id='expandSymbol'>+</a></span></strong>
 		</div>
 	</div>
 	<div id='review' class='searchSegment ui container segment'>
 			<div id='searchAlbumList' class='ui four cards'>
 				
 			</div>
+	</div>
+
+
+	<div id='searchArtist' class='ui container'>
+		<div class='ui container'>
+			
+				<strong><span>Songs</span></strong>
+				
+
 		</div>
-	<script src='/javascript/search.js'></script>
-	<script src='/javascript/searchListener.js'></script>
+		<div id='songList' class='ui segment'>
+			<div id='playlist' class='ui center aligned container'>
+
+			</div>
+			<table id='table' class="ui fixed single line celled table">
+					
+			</table>
+		</div>
+	</div>
+	
+
+	
+
+
 </div>
+<script src='/javascript/search.js'></script>
+<script src='/javascript/searchListener.js'></script>

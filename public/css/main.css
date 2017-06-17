@@ -50,6 +50,7 @@ img{
 	float: right
 }
 #playButton{
+	margin: 0px;
 	width: 100%;
 }
 #bg {
@@ -172,6 +173,31 @@ body{
 #review{
 	margin-top: 0px;
 }
+#songList{
+	
+	margin: 0px;
+	padding-top: 0px;
+}
+#similarList{
+	
+	padding: 0px;
+	margin-top: 0px;
+}
+#searchSimilar{
+	padding-left: 1em;
+	
+	float: right;
+	width: 48%;
+	margin-top: 0px;
+}
+#searchArtist{
+	
+	
+	margin-bottom: 15px;
+}
+#expandArtist{
+	display: inline;
+}
 .searchSegment{
 
 }
@@ -184,7 +210,37 @@ body{
 #hiddenCards{
 
 }
-#expand{
-	float: right;
+.expand{
 	cursor: pointer;
+}
+.column{
+	padding: 0px;
+}
+#artistAndSimilar{
+	display: flex;
+}
+
+@media only screen and (max-width: 767px){
+
+	.ui.table:not(.unstackable) tr{
+		padding-top: 0px;
+		padding-bottom: 0px;
+		box-shadow: 0px 0px 0px 0px !important;
+	}
+ 
+	/*.ui.celled.table tr td:nth-child(2){
+		border-top: 1px solid rgba(34, 36, 38, 0.1) !important;
+	}
+	.ui.celled.table tr td:nth-child(2){
+		border-bottom: 1px solid rgba(34, 36, 38, 0.1) !important;
+	}*/
+
+	.ui.table:not(.unstackable) tr > th, .ui.table:not(.unstackable) tr:not(:first-child) > td{
+		border-top: 1px solid rgba(34, 36, 38, 0.1) !important;
+	}
+	
+	#yt{
+		margin: 1em;
+	}
+
 }

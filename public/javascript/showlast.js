@@ -44,7 +44,7 @@ function trackListener() {
 	
 	if(add.textContent.trim() !== arr.album.name){
 		add.style.display = 'block';
-		add.innerHTML = '<div id="addButton" class="ui green button" data="" data-tooltip="Add this album to your collection!" data-position="top center">Add</div>';
+		add.innerHTML = '<div id="addButton" class="ui basic green button" data="" data-tooltip="Add this album to your collection!" data-position="top center">Add</div>';
 		var addButton = document.getElementById('addButton');
 		addButton.addEventListener('click', (e) =>{
 			add.style.display = 'none';
@@ -96,7 +96,7 @@ function ytListener() {
 	if(arr.items.length === 0){
 		links.push('undefined')
 	} else {
-	links.push('<a target="_blank" id="yt" class="ui small primary button" href="https://www.youtube.com/watch?v=' + arr.items[0].id.videoId + '">Listen</a>');
+	links.push('<a target="_blank" id="yt" class="ui small basic blue button" href="https://www.youtube.com/watch?v=' + arr.items[0].id.videoId + '">Listen</a>');
 	id.push(arr.items[0].id.videoId)
 	}
 	getYoutube(links.length)
@@ -107,7 +107,7 @@ function ytListener() {
 				cleanId.push(id[i])
 			}
 		}
-		playlist.innerHTML = "<a target='_blank' href='http://www.youtube.com/watch_videos?video_ids=" + cleanId.join(',') + "' id='playButton' class='ui primary button'>Play All</a>"
+		playlist.innerHTML = "<a target='_blank' href='http://www.youtube.com/watch_videos?video_ids=" + cleanId.join(',') + "' id='playButton' class='ui basic blue button'>Play All</a>"
 		table.innerHTML = '';
 		
 		generateContent();

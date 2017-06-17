@@ -1,6 +1,9 @@
 const container = document.getElementById(''),
 searchAlbumList = document.getElementById('searchAlbumList'),
-expand = document.getElementById('expand'),
+playlist = document.getElementById('playlist'),
+table = document.getElementById('table'),
+expand = document.querySelector('.expand'),
+expandSymbol = document.getElementById('expandSymbol'),
 title = document.getElementsByTagName('h7');
 
 if (matchMedia) {
@@ -18,6 +21,7 @@ function WidthChange(mq) {
   }
 }
 
+table.innerHTML = '<tr><td><div class="ui center aligned container"><h4>Gathering songs...</h4><div id="loader" class="ui active centered inline loader"></div></td></tr>';
 
 function searchListener(){
 	data = JSON.parse(this.responseText);
@@ -71,14 +75,106 @@ function showContent(data){
 	currentState = searchAlbumList.innerHTML;
 }
 
+var tracks = [];
+function trackListener() {
+	var arr = JSON.parse(this.responseText);
+	
+	if(arr.toptracks.track.length > 0){
+	arr.toptracks.track.forEach((i) => {
+		tracks.push(i.name)
+	});
+	getYoutube(0)
+	}
+};
+
+function trackError(err) {  
+	console.log('Error: ', err);  
+};
+
+
+function generateContent(){
+	var html = '<tbody>'
+	for(var i=0; i<5; i++){
+		if(links[i].includes('undefined')){
+			html += '<tr><td><strong>' + tracks[i] + '</strong></td>'
+		} else {
+		html += '<tr><td><strong>' + tracks[i] + '</strong> ' + links[i] + '</td>'
+		}
+		
+		if(links[i+5].includes('undefined')){
+				html += '<td><strong>' + tracks[i+5] + '</strong></td></tr>'
+			} else {
+			html += '<td><strong>' + tracks[i+5] + '</strong> ' + links[i+5] + '</td></tr>'
+			}
+			
+		}
+	
+	html+='</tbody>'
+	table.innerHTML = html;
+}
+
+var links = [];
+var id = [];
+var cleanId = [];
+function ytListener() {
+	var arr = JSON.parse(this.responseText);
+	if(arr.items.length === 0){
+		links.push('undefined')
+	} else {
+	links.push('<a target="_blank" id="yt" class="ui small basic blue button" href="https://www.youtube.com/watch?v=' + arr.items[0].id.videoId + '">Listen</a>');
+	id.push(arr.items[0].id.videoId)
+	}
+	getYoutube(links.length)
+	if(links.length === tracks.length){
+		var cleanId = []
+		for(var i=0; i<id.length;i++){
+			if(id[i] !== undefined){
+				cleanId.push(id[i])
+			}
+		}
+		playlist.innerHTML = "<a target='_blank' href='http://www.youtube.com/watch_videos?video_ids=" + cleanId.join(',') + "' id='playButton' class='ui basic blue button'>Play All</a>"
+		table.innerHTML = '';
+		console.log(links.length)
+		generateContent();
+	}
+};
+
+function ytError(err) {  
+	console.log('Error: ', err);  
+};
+
+function youtube(i){
+	var search = decodeURI(window.location.pathname.slice(15) + ' ' + tracks[i].replace('/', ' '));
+	var xhr = new XMLHttpRequest();
+	xhr.onload = ytListener;
+	xhr.onerror = ytError;
+	xhr.open('get', 'https://www.googleapis.com/youtube/v3/search?q=' + search + '&maxResults=1&part=snippet&key=***REMOVED***');
+	xhr.send();
+}
+
+function getYoutube(i){
+	if(i<tracks.length){
+		console.log('Getting tracks')
+		youtube(i)
+	} else {
+		return;
+	}
+}
+
+var xhr = new XMLHttpRequest();
+xhr.onload = trackListener;
+xhr.onerror = trackError;
+xhr.open('get', 'http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=' + decodeURI(window.location.pathname.slice(15)) +  '&limit=10&api_key=***REMOVED***&format=json');
+xhr.send();
+
 var expandState = '';
 var currentState;
 expand.addEventListener('click', (e) => {
-	if(expand.textContent === 'Expand+'){
-		expand.textContent = 'Expand-';
+	if(expandSymbol.textContent === '+'){
+		expandSymbol.textContent = '-';
 		searchAlbumList.innerHTML += expandState;
 	} else {
-		expand.textContent = 'Expand+';
+		expandSymbol.textContent = '+';
 		searchAlbumList.innerHTML = currentState;
 	}
 })
