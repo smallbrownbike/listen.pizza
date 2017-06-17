@@ -8,7 +8,7 @@ expandSymbol = document.getElementById('expandSymbol'),
 title = document.getElementsByTagName('h7');
 
 if (matchMedia) {
-  var mq = window.matchMedia("(min-width: 500px)");
+  var mq = window.matchMedia("(min-width: 650px)");
   mq.addListener(WidthChange);
   WidthChange(mq);
 }
