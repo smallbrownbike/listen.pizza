@@ -1,8 +1,9 @@
-const container = document.getElementById(''),
+var container = document.getElementById(''),
 searchAlbumList = document.getElementById('searchAlbumList'),
 playlist = document.getElementById('playlist'),
 expand = document.querySelector('.expand'),
 bg = document.getElementById('bg'),
+table = document.getElementById('table'),
 expandSymbol = document.getElementById('expandSymbol'),
 title = document.getElementsByTagName('h7');
 
