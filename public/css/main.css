@@ -168,7 +168,7 @@ body{
 	margin: 25px auto 25px;
 }
 #searchContainer{
-	margin-top: 15px;
+	margin: 15px auto;
 }
 #review{
 	margin-top: 0px;
@@ -196,6 +196,7 @@ body{
 	margin-bottom: 15px;
 }
 #expandArtist{
+	
 	display: inline;
 }
 .searchSegment{
@@ -242,5 +243,6 @@ body{
 	#yt{
 		margin: 1em;
 	}
+
 
 }

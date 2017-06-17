@@ -3,6 +3,7 @@ searchAlbumList = document.getElementById('searchAlbumList'),
 playlist = document.getElementById('playlist'),
 table = document.getElementById('table'),
 expand = document.querySelector('.expand'),
+bg = document.getElementById('bg'),
 expandSymbol = document.getElementById('expandSymbol'),
 title = document.getElementsByTagName('h7');
 
@@ -21,7 +22,7 @@ function WidthChange(mq) {
   }
 }
 
-table.innerHTML = '<tr><td><div class="ui center aligned container"><h4>Gathering songs...</h4><div id="loader" class="ui active centered inline loader"></div></td></tr>';
+table.innerHTML = '<tr><td><div class="ui center aligned container"><h4>Gathering top songs...</h4><div id="loader" class="ui active centered inline loader"></div></td></tr>';
 
 function searchListener(){
 	data = JSON.parse(this.responseText);
@@ -78,7 +79,8 @@ function showContent(data){
 var tracks = [];
 function trackListener() {
 	var arr = JSON.parse(this.responseText);
-	
+	var img = arr.toptracks.track[0].image[3]['#text'];
+	bg.style.backgroundImage = 'url(' + img + ')';
 	if(arr.toptracks.track.length > 0){
 	arr.toptracks.track.forEach((i) => {
 		tracks.push(i.name)
