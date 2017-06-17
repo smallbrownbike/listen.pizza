@@ -1,7 +1,6 @@
 const container = document.getElementById(''),
 searchAlbumList = document.getElementById('searchAlbumList'),
 playlist = document.getElementById('playlist'),
-table = document.getElementById('table'),
 expand = document.querySelector('.expand'),
 bg = document.getElementById('bg'),
 expandSymbol = document.getElementById('expandSymbol'),
