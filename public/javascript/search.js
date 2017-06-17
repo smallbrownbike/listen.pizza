@@ -134,9 +134,8 @@ function ytListener() {
 				cleanId.push(id[i])
 			}
 		}
-		playlist.innerHTML = "<a target='_blank' href='http://www.youtube.com/watch_videos?video_ids=" + cleanId.join(',') + "' id='playButton' class='ui basic blue button'>Play All</a>"
+		playlist.innerHTML = "<a target='_blank' href='https://www.youtube.com/watch_videos?video_ids=" + cleanId.join(',') + "' id='playButton' class='ui basic blue button'>Play All</a>"
 		table.innerHTML = '';
-		console.log(links.length)
 		generateContent();
 	}
 };
@@ -166,7 +165,7 @@ function getYoutube(i){
 var xhr = new XMLHttpRequest();
 xhr.onload = trackListener;
 xhr.onerror = trackError;
-xhr.open('get', 'http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=' + decodeURI(window.location.pathname.slice(15)) +  '&limit=10&api_key=***REMOVED***&format=json');
+xhr.open('get', 'https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=' + decodeURI(window.location.pathname.slice(15)) +  '&limit=10&api_key=***REMOVED***&format=json');
 xhr.send();
 
 var expandState = '';

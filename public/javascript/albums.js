@@ -38,13 +38,9 @@ function WidthChange(mq) {
   }
 }
 
-console.log(cardArtist)
-console.log(cardTitle)
-
 for(var i = 0; i<imageContainer.length; i++){
 	var artist = encodeURIComponent(cardArtist.item(i).textContent.replace(/[!'()*]/g, escape));
 	var album = encodeURIComponent(cardTitle.item(i).textContent.replace(/[!'()*]/g, escape));
-	console.log(album)
 	imageContainer.item(i).setAttribute('href', '/album/' + artist + '+' + album);
 }
 
