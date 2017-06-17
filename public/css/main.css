@@ -166,3 +166,25 @@ body{
 	padding: 15px 15px 15px 15px;
 	margin: 25px auto 25px;
 }
+#searchContainer{
+	margin-top: 15px;
+}
+#review{
+	margin-top: 0px;
+}
+.searchSegment{
+
+}
+#searchAlbumList{
+    
+}
+.searchAlbumCard{
+
+}
+#hiddenCards{
+
+}
+#expand{
+	float: right;
+	cursor: pointer;
+}
