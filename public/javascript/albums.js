@@ -6,6 +6,8 @@ links = document.getElementsByTagName('a'),
 added = document.getElementsByTagName('p'),
 buttons = document.getElementById('buttons'),
 edit = document.getElementById('edit'),
+cardArtist = document.querySelectorAll('#cardArtist'),
+cardTitle = document.querySelectorAll('#title');
 imageContainer = document.querySelectorAll('#imageContainer'),
 sortAndDelete = document.getElementById('sortAndDelete'),
 trash = document.querySelectorAll('#trash'),
@@ -36,9 +38,14 @@ function WidthChange(mq) {
   }
 }
 
+console.log(cardArtist)
+console.log(cardTitle)
+
 for(var i = 0; i<imageContainer.length; i++){
-	var href = imageContainer.item(i).getAttribute('href').slice('7').split('+');
-	imageContainer.item(i).setAttribute('href', '/album/' + encodeURIComponent(href[0]) + '+' + encodeURIComponent(href[1]))
+	var artist = encodeURIComponent(cardArtist.item(i).textContent.replace(/[!'()*]/g, escape));
+	var album = encodeURIComponent(cardTitle.item(i).textContent.replace(/[!'()*]/g, escape));
+	console.log(album)
+	imageContainer.item(i).setAttribute('href', '/album/' + artist + '+' + album);
 }
 
 if(!albumList.innerHTML.trim()){
