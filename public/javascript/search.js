@@ -4,6 +4,9 @@ playlist = document.getElementById('playlistSearch'),
 expand = document.querySelector('.expand'),
 bg = document.getElementById('bg'),
 table = document.getElementById('table'),
+pageTitle = document.getElementById('title'),
+similarArtistDiv = document.getElementById('similarArtistDiv'),
+similarArtistGrid = document.getElementById('similarArtistGrid'),
 expandSymbol = document.getElementById('expandSymbol'),
 title = document.getElementsByTagName('h7');
 
@@ -17,8 +20,10 @@ if (matchMedia) {
 function WidthChange(mq) {
   if (mq.matches) {
     searchAlbumList.setAttribute('class', 'ui four cards')
+		similarArtistGrid.setAttribute('class', 'ui five column grid')
   } else {
     searchAlbumList.setAttribute('class', 'ui two cards')
+		similarArtistGrid.setAttribute('class', 'ui three column grid')
   }
 }
 
@@ -27,7 +32,7 @@ table.innerHTML = '<tr><td><div class="ui center aligned container"><h4>Gatherin
 function searchListener(){
 	data = JSON.parse(this.responseText);
 	showContent(data);
-	
+	pageTitle.textContent = data.topalbums['@attr'].artist;
 }
 
 function searchError(err){
@@ -92,6 +97,31 @@ function trackListener() {
 function trackError(err) {  
 	console.log('Error: ', err);  
 };
+
+///similar
+function similarListener() {
+	var arr = JSON.parse(this.responseText);
+	generateSimilar(arr.similarartists.artist)
+};
+////
+
+function similarError(err) {  
+	console.log('Error: ', err);  
+};
+
+function generateSimilar(data){
+	data.forEach((i) => {
+		if(i.image[3]['#text']){
+		var image = i.image[3]['#text'];
+		} else {
+			var image = 'https://s-media-cache-ak0.pinimg.com/originals/b8/9d/17/b89d17a8d96248e8ce344de075372c24.jpg'
+		}
+		var name = i.name;
+		similarArtistGrid.innerHTML += "<div id='similarArtistColumn' class='column'><div id='similarArtistCard' class='ui card'><a id='imageContainer' href='/artist/search/" + encodeURIComponent(name.replace('/', ' ')) + "' class='image'><img id='similarImage' src='" + image + "'><div id='similarArtistContainer' class='ui text container'><div id='similarArtistName'>" + name + "</div></div></a></div></div>";
+		
+	})
+	similarArtistDiv.style.display = 'block';
+}
 
 
 function generateContent(){
@@ -167,6 +197,12 @@ var xhr = new XMLHttpRequest();
 xhr.onload = trackListener;
 xhr.onerror = trackError;
 xhr.open('get', 'https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=' + decodeURI(window.location.pathname.slice(15)) +  '&limit=10&api_key=***REMOVED***&format=json');
+xhr.send();
+
+var xhr = new XMLHttpRequest();
+xhr.onload = similarListener;
+xhr.onerror = similarError;
+xhr.open('get', 'https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=' + decodeURI(window.location.pathname.slice(15)) +  '&limit=10&api_key=***REMOVED***&format=json');
 xhr.send();
 
 var expandState = '';
