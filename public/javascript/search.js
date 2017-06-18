@@ -1,6 +1,6 @@
 var container = document.getElementById(''),
 searchAlbumList = document.getElementById('searchAlbumList'),
-playlist = document.getElementById('playlist'),
+playlist = document.getElementById('playlistSearch'),
 expand = document.querySelector('.expand'),
 bg = document.getElementById('bg'),
 table = document.getElementById('table'),
@@ -98,21 +98,22 @@ function generateContent(){
 	var html = '<tbody>'
 	for(var i=0; i<5; i++){
 		if(links[i].includes('undefined')){
-			html += '<tr><td><strong>' + tracks[i] + '</strong></td>'
+			html += '<tr><td id="trackName">' + tracks[i] + '</td>'
 		} else {
-		html += '<tr><td><strong>' + tracks[i] + '</strong> ' + links[i] + '</td>'
+		html += '<tr><td id="trackName">' + tracks[i] + ' ' + links[i] + '</td>'
 		}
 		
 		if(links[i+5].includes('undefined')){
-				html += '<td><strong>' + tracks[i+5] + '</strong></td></tr>'
+				html += '<td id="trackName">' + tracks[i+5] + '</td></tr>'
 			} else {
-			html += '<td><strong>' + tracks[i+5] + '</strong> ' + links[i+5] + '</td></tr>'
+			html += '<td id="trackName">' + tracks[i+5] + ' ' + links[i+5] + '</td></tr>'
 			}
 			
 		}
 	
 	html+='</tbody>'
 	table.innerHTML = html;
+	
 }
 
 var links = [];
@@ -134,7 +135,7 @@ function ytListener() {
 				cleanId.push(id[i])
 			}
 		}
-		playlist.innerHTML = "<a target='_blank' href='https://www.youtube.com/watch_videos?video_ids=" + cleanId.join(',') + "' id='playButton' class='ui basic blue button'>Play All</a>"
+		playlist.innerHTML = "<a target='_blank' href='https://www.youtube.com/watch_videos?video_ids=" + cleanId.join(',') + "'>Play All</a>";
 		table.innerHTML = '';
 		generateContent();
 	}

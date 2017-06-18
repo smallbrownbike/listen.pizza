@@ -28,9 +28,9 @@ function generateContent(){
 	var html = '<thead></thead><tbody>'
 	for(var i=0; i<tracks.length; i++){
 		if(links[i].includes('undefined')){
-			html += '<div class="ui text container"><tr><td><strong>' + tracks[i] + '</strong></td></tr></div>'
+			html += '<div class="ui text container"><tr><td>' + tracks[i] + '</td></tr></div>'
 		} else {
-		html += '<div class="ui text container"><tr><td><strong>' + tracks[i] + '</strong> ' + links[i] + '</td></tr></div>'
+		html += '<div class="ui text container"><tr><td>' + tracks[i] + ' ' + links[i] + '</td></tr></div>'
 		}
 	}
 	html+='</tbody>'
@@ -127,7 +127,12 @@ xhr.open('get', 'https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key
 xhr.send();
 	
 function youtube(i){
-	var search = encodeURIComponent(artist.textContent + ' ' + tracks[i].replace('/', ' '));
+	if(tracks[i].replace('/', ' ').toLowerCase() === lastAlbum[1].toLowerCase()){
+		var search = encodeURIComponent(artist.textContent + ' ' + tracks[i].replace('/', ' ') + ' song');
+	} else {
+		var search = encodeURIComponent(artist.textContent + ' ' + tracks[i].replace('/', ' '));
+	}
+	console.log('https://www.googleapis.com/youtube/v3/search?q=' + search + '&maxResults=1&part=snippet&key=***REMOVED***')
 	var xhr = new XMLHttpRequest();
 	xhr.onload = ytListener;
 	xhr.onerror = ytError;
