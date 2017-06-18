@@ -278,6 +278,10 @@ img{}
 
 @media only screen and (max-width: 767px){
 
+	#trackName{
+		padding: 0.78571429em 0.78571429em !important;
+	}
+
 	.ui.table:not(.unstackable) tr{
 		padding-top: 0px;
 		padding-bottom: 0px;

@@ -28,9 +28,9 @@ function generateContent(){
 	var html = '<thead></thead><tbody>'
 	for(var i=0; i<tracks.length; i++){
 		if(links[i].includes('undefined')){
-			html += '<div class="ui text container"><tr><td>' + tracks[i] + '</td></tr></div>'
+			html += '<div class="ui text container"><tr><td id="trackName">' + tracks[i] + '</td></tr></div>'
 		} else {
-		html += '<div class="ui text container"><tr><td>' + tracks[i] + ' ' + links[i] + '</td></tr></div>'
+		html += '<div class="ui text container"><tr><td id="trackName">' + tracks[i] + ' ' + links[i] + '</td></tr></div>'
 		}
 	}
 	html+='</tbody>'

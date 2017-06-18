@@ -6,11 +6,6 @@
 	.ui.table:not(.unstackable) tr > th, .ui.table:not(.unstackable) tr:first-child > td:first-child{
 		border-bottom: 1px solid rgba(34, 36, 38, 0.1) !important;
 	}
-	
-	#trackName{
-		padding: 0.78571429em 0.78571429em !important;
-		
-	}
 
 	.ui.container{
 		margin-left: 0px !important;
