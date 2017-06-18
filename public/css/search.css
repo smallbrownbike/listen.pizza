@@ -15,10 +15,14 @@
 	#similarArtistContainer{
 		font-size: 1em;
 	}
+	
+	
+}
+
+@media only screen and (max-width: 650px){
 	#similarArtistColumn:last-child{
 		display: none;
 	}
-	
 }
 #playlistSearch{
 	display: inline;
