@@ -128,7 +128,7 @@ xhr.send();
 	
 function youtube(i){
 	if(tracks[i].replace('/', ' ').toLowerCase() === lastAlbum[1].toLowerCase()){
-		var search = encodeURIComponent(artist.textContent + ' ' + tracks[i].replace('/', ' ') + ' song');
+		var search = encodeURIComponent(artist.textContent + ' ' + tracks[i].replace('/', ' '));
 	} else {
 		var search = encodeURIComponent(artist.textContent + ' ' + tracks[i].replace('/', ' '));
 	}
