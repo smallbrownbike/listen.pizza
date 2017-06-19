@@ -5,6 +5,7 @@ expand = document.querySelector('.expand'),
 bg = document.getElementById('bg'),
 table = document.getElementById('table'),
 pageTitle = document.getElementById('title'),
+artistBio = document.getElementById('bio'),
 similarArtistDiv = document.getElementById('similarArtistDiv'),
 similarArtistColumns = document.getElementById('similarArtistColumns'),
 expandSymbol = document.getElementById('expandSymbol'),
@@ -23,7 +24,7 @@ function WidthChange(mq) {
 		similarArtistColumns.setAttribute('class', 'ui five column grid')
   } else {
     searchAlbumList.setAttribute('class', 'ui two cards')
-		similarArtistColumns.setAttribute('class', 'ui three column grid')
+		similarArtistColumns.setAttribute('class', 'ui two column grid')
   }
 }
 
@@ -101,9 +102,23 @@ function trackError(err) {
 ///similar
 function similarListener() {
 	var arr = JSON.parse(this.responseText);
-	generateSimilar(arr.similarartists.artist)
+	generateSimilar(arr.artist.similar.artist)
+	generateBio(arr.artist)
 };
 ////
+
+function generateBio(data){
+	
+	if(data.image[3]['#text']){
+		var image = data.image[3]['#text'];
+		} else {
+			var image = 'https://s-media-cache-ak0.pinimg.com/originals/b8/9d/17/b89d17a8d96248e8ce344de075372c24.jpg'
+		}
+	var name = data.name;
+	var bio = data.bio.summary;
+	
+	artistBio.innerHTML = "<div class='ui circular image'><img src='" + image + "'></div><div class='ui text container'><h1 id='artistTitle'>" + name + "</h1><div class='ui fitted divider'></div></div><div id='artistSummary' class='ui text container'>" + bio + "</div>"
+}
 
 function similarError(err) {  
 	console.log('Error: ', err);  
@@ -202,7 +217,7 @@ xhr.send();
 var xhr = new XMLHttpRequest();
 xhr.onload = similarListener;
 xhr.onerror = similarError;
-xhr.open('get', 'https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=' + decodeURI(window.location.pathname.slice(15)) +  '&limit=10&api_key=***REMOVED***&format=json');
+xhr.open('get', 'https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' + decodeURI(window.location.pathname.slice(15)) +  '&limit=1&api_key=***REMOVED***&format=json');
 xhr.send();
 
 var expandState = '';

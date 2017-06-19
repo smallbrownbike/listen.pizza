@@ -132,7 +132,7 @@ function youtube(i){
 	} else {
 		var search = encodeURIComponent(artist.textContent + ' ' + tracks[i].replace('/', ' '));
 	}
-	console.log('https://www.googleapis.com/youtube/v3/search?q=' + search + '&maxResults=1&part=snippet&key=***REMOVED***')
+	
 	var xhr = new XMLHttpRequest();
 	xhr.onload = ytListener;
 	xhr.onerror = ytError;

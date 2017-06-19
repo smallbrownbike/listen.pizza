@@ -186,6 +186,9 @@ body{
 #review{
 	margin-top: 0px;
 }
+#bio{
+	margin-top: 0px;
+}
 #songList{
 	
 	margin: 0px;
@@ -287,7 +290,12 @@ body{
 #similarArtistCard{
 	box-shadow: 0px 0px 0px 0px !important;
 }
-img{}
+#artistTitle{
+	margin: 10px !important;
+}
+#artistSummary{
+	margin-top: 10px;
+}
 
 
 @media only screen and (max-width: 767px){

@@ -46,12 +46,10 @@ for(var i = 0; i<imageContainer.length; i++){
 	imageContainer.item(i).setAttribute('href', '/album/' + artist + '+' + album);
 }
 
-console.log(artistLink)
 ///artist link
 for(var i = 0; i<artistLink.length; i++){
 	var artist = encodeURIComponent(cardArtist.item(i).textContent.replace(/[!'()*]/g, escape));
 	artistLink.item(i).setAttribute('href', 'artist/search/' + artist);
-	console.log(artist)
 }
 
 if(!albumList.innerHTML.trim()){
