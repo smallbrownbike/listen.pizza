@@ -8,7 +8,7 @@ searchBar.focus();
 
 searchBar.addEventListener('keypress', (e) => {
 	if(e.which === 13){
-		window.location.href = '/artist/search/' + encodeURIComponent(searchBar.value);
+		window.location.href = '/artist/search/' + encodeURIComponent(searchBar.value).replace(/[!'()*]/g, escape);
 	}
 })
 
