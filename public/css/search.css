@@ -1,17 +1,18 @@
-@media only screen and (max-width: 767px){
+@media only screen and (max-width: 650px){
 
 	.ui.table:not(.unstackable) tr > th, .ui.table:not(.unstackable) tr:not(:first-child) > td{
 		border-top: 1px solid rgba(34, 36, 38, 0.1) !important;
 	}
-	.ui.table:not(.unstackable) tr > th, .ui.table:not(.unstackable) tr:first-child > td:first-child{
-		border-bottom: 1px solid rgba(34, 36, 38, 0.1) !important;
-	}
-
+	
+	.ui.table:not(.unstackable) tr > td:last-child {
+    display: none !important;
+  }
 	
 	
-	#similarArtistContainer{
-		font-size: 1em;
+	.ui.circular.image > img{
+		max-height: 200px;
 	}
+	
 	
 	
 }
@@ -21,6 +22,12 @@
 		display: none;
 	}
 }
+
+.ui.text.container{
+	width: 100%;
+}
+
+
 #playlistSearch{
 	display: inline;
 	float: right;

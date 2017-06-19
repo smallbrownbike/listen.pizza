@@ -60,7 +60,7 @@ function trackListener() {
 			xhr.send(JSON.stringify(params));
 		})
 	}
-	artist.innerHTML = '<a href="/artist/search/' + arr.album.artist + '">' + arr.album.artist + '</a> - ';
+	artist.innerHTML = '<a href="/artist/search/' + encodeURIComponent(arr.album.artist) + '">' + arr.album.artist + '</a> - ';
 	album.textContent = arr.album.name;
 	///set page title
 	
