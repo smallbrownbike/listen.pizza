@@ -242,6 +242,20 @@ body{
 	
 }
 
+#similarArtistGrid{
+	padding: 0px !important;
+	margin: 0px !important;
+}
+
+#similarArtistColumns{
+	padding: 0px !important;
+	margin: 0px !important;
+}
+
+#similarArtistColumn:nth-child(1){
+	border-top-left-radius: 5px;
+}
+
 #similarArtistDiv{
 	display: none;
 }

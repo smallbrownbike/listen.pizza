@@ -6,7 +6,7 @@ bg = document.getElementById('bg'),
 table = document.getElementById('table'),
 pageTitle = document.getElementById('title'),
 similarArtistDiv = document.getElementById('similarArtistDiv'),
-similarArtistGrid = document.getElementById('similarArtistGrid'),
+similarArtistColumns = document.getElementById('similarArtistColumns'),
 expandSymbol = document.getElementById('expandSymbol'),
 title = document.getElementsByTagName('h7');
 
@@ -20,10 +20,10 @@ if (matchMedia) {
 function WidthChange(mq) {
   if (mq.matches) {
     searchAlbumList.setAttribute('class', 'ui four cards')
-		similarArtistGrid.setAttribute('class', 'ui five column grid')
+		similarArtistColumns.setAttribute('class', 'ui five column grid')
   } else {
     searchAlbumList.setAttribute('class', 'ui two cards')
-		similarArtistGrid.setAttribute('class', 'ui three column grid')
+		similarArtistColumns.setAttribute('class', 'ui three column grid')
   }
 }
 
@@ -117,7 +117,7 @@ function generateSimilar(data){
 			var image = 'https://s-media-cache-ak0.pinimg.com/originals/b8/9d/17/b89d17a8d96248e8ce344de075372c24.jpg'
 		}
 		var name = i.name;
-		similarArtistGrid.innerHTML += "<div id='similarArtistColumn' class='column'><div id='similarArtistCard' class='ui card'><a id='imageContainer' href='/artist/search/" + encodeURIComponent(name.replace('/', ' ')) + "' class='image'><img id='similarImage' src='" + image + "'><div id='similarArtistContainer' class='ui text container'><div id='similarArtistName'>" + name + "</div></div></a></div></div>";
+		similarArtistColumns.innerHTML += "<div id='similarArtistColumn' class='column'><div id='similarArtistCard' class='ui card'><a id='imageContainer' href='/artist/search/" + encodeURIComponent(name.replace('/', ' ')) + "' class='image'><img id='similarImage' src='" + image + "'><div id='similarArtistContainer' class='ui text container'><div id='similarArtistName'>" + name + "</div></div></a></div></div>";
 		
 	})
 	similarArtistDiv.style.display = 'block';
