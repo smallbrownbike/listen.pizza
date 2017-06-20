@@ -15,33 +15,30 @@ var links = [];
 var id = [];
 var summary = '';
 var string = '';
+var cleanId = [];
 
 ///////////////////////////////////////////
 
-
-
-var lastAlbum = decodeURI(window.location.pathname.slice(7)).split('+');
-
+///song list loader
 table.innerHTML = '<tr><td><div class="ui center aligned container"><h4>Gathering songs...</h4><div id="loader" class="ui active centered inline loader"></div></td></tr>';
 
-function generateContent(){
-	var html = '<thead></thead><tbody>'
-	for(var i=0; i<tracks.length; i++){
-		if(links[i].includes('undefined')){
-			html += '<div class="ui text container"><tr><td id="trackName">' + tracks[i] + '</td></tr></div>'
-		} else {
-		html += '<div class="ui text container"><tr><td id="trackName">' + tracks[i] + ' ' + links[i] + '</td></tr></div>'
-		}
-	}
-	html+='</tbody>'
-	table.innerHTML = html;
-	
+///album request
+function albumInfoListener(){
+	generateContent(JSON.parse(this.responseText))
 }
+var params = {
+	albumInfo: decodeURI(window.location.pathname.slice(7)).split('+')
+}
+var xhr = new XMLHttpRequest();
+xhr.onload = albumInfoListener;
+xhr.open('POST', '/api');
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.send(JSON.stringify(params));
+////
 
-///track
-function trackListener() {
-	var arr = JSON.parse(this.responseText);
-	
+///main content generation/youtube request
+function generateContent(data) {
+	var arr = data;
 	if(add.textContent.trim() !== arr.album.name){
 		add.style.display = 'block';
 		add.innerHTML = '<div id="addButton" class="ui basic green button" data="" data-tooltip="Add this album to your collection!" data-position="top center">Add</div>';
@@ -55,18 +52,17 @@ function trackListener() {
 				artist: arr.album.artist,
 				image: arr.album.image[3]['#text']				
 			};
-			xhr.open("POST", "/collection", true);
+			xhr.open("POST", "/collection", true); ///<----- test nothing here
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.send(JSON.stringify(params));
 		})
 	}
 	artist.innerHTML = '<a href="/artist/search/' + encodeURIComponent(arr.album.artist) + '">' + arr.album.artist + '</a> - ';
 	album.textContent = arr.album.name;
-	///set page title
 	
 	title.textContent = artist.textContent + album.textContent;
 	var img = arr.album.image[3]['#text'];
-	///
+	
 	image.innerHTML = '<img class="ui image" src="' + img + '">';
 	bg.style.backgroundImage = 'url(' + img + ')';
 	arr.album.tags.tag.forEach((i) => {
@@ -77,105 +73,61 @@ function trackListener() {
 		review.innerHTML = summary;
 	}
 	if(arr.album.tracks.track.length > 0){
-	arr.album.tracks.track.forEach((i) => {
-		tracks.push(i.name)
-	});
-	getYoutube(0)
+		arr.album.tracks.track.forEach((i) => {
+			tracks.push(i.name)
+		});
+		youtube(0);
+		function youtube(i){
+			if(i<tracks.length){
+				var search = encodeURIComponent(artist.textContent + ' ' + tracks[i].replace('/', ' '));
+
+				function youtubeListener(){
+					generateYoutube(JSON.parse(this.responseText))
+				}
+				var params = {
+					youtube: search
+				}
+				var xhr = new XMLHttpRequest();
+				xhr.onload = youtubeListener;
+				xhr.open('POST', '/api');
+				xhr.setRequestHeader('Content-Type', 'application/json');
+				xhr.send(JSON.stringify(params));
+			}
+			function generateYoutube(data) {
+				console.log(data)
+				var arr = data;
+				if(arr.items.length === 0){
+					links.push('undefined')
+				} else {
+					links.push('<a target="_blank" id="yt" class="ui small basic blue button" href="https://www.youtube.com/watch?v=' + arr.items[0].id.videoId + '">Listen</a>');
+					id.push(arr.items[0].id.videoId)
+				}
+				youtube(links.length)
+				if(links.length === tracks.length){
+					for(var i=0; i<id.length;i++){
+						if(id[i] !== undefined){
+							cleanId.push(id[i])
+						}
+					}
+					generateSongList();
+				}
+			};
+			function generateSongList(){
+				playlist.innerHTML = "<a target='_blank' href='http://www.youtube.com/watch_videos?video_ids=" + cleanId.join(',') + "' id='playButton' class='ui basic blue button'>Play All</a>"
+				table.innerHTML = '';
+				var html = '<tbody>'
+				for(var i=0; i<tracks.length; i++){
+					if(links[i].includes('undefined')){
+						html += '<div class="ui text container"><tr><td id="trackName">' + tracks[i] + '</td></tr></div>'
+					} else {
+						html += '<div class="ui text container"><tr><td id="trackName">' + tracks[i] + ' ' + links[i] + '</td></tr></div>'
+					}
+				}
+				html+='</tbody>'
+				table.innerHTML = html;
+			}
+		}
 	} else {
 		table.innerHTML = '<div class="ui negative message"></i><div class="ui center aligned container">Darn! We couldn\'t find the tracklist for <strong>' + arr.album.artist + '-' + arr.album.name + '</strong>.</div></div>'
 	}
 };
-
-function trackError(err) {  
-	console.log('Error: ', err);  
-};
-
-//youtube
-function ytListener() {
-	var arr = JSON.parse(this.responseText);
-	if(arr.items.length === 0){
-		links.push('undefined')
-	} else {
-	links.push('<a target="_blank" id="yt" class="ui small basic blue button" href="https://www.youtube.com/watch?v=' + arr.items[0].id.videoId + '">Listen</a>');
-	id.push(arr.items[0].id.videoId)
-	}
-	getYoutube(links.length)
-	if(links.length === tracks.length){
-		var cleanId = []
-		for(var i=0; i<id.length;i++){
-			if(id[i] !== undefined){
-				cleanId.push(id[i])
-			}
-		}
-		playlist.innerHTML = "<a target='_blank' href='http://www.youtube.com/watch_videos?video_ids=" + cleanId.join(',') + "' id='playButton' class='ui basic blue button'>Play All</a>"
-		table.innerHTML = '';
-		
-		generateContent();
-	}
-};
-
-function ytError(err) {  
-	console.log('Error: ', err);  
-};
-
-//initial request
-
-var xhr = new XMLHttpRequest();
-xhr.onload = trackListener;
-xhr.onerror = trackError;
-xhr.open('get', 'https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=***REMOVED***&artist=' + lastAlbum[0] + '&album=' + lastAlbum[1] +'&format=json');
-xhr.send();
-	
-function youtube(i){
-	if(tracks[i].replace('/', ' ').toLowerCase() === lastAlbum[1].toLowerCase()){
-		var search = encodeURIComponent(artist.textContent + ' ' + tracks[i].replace('/', ' '));
-	} else {
-		var search = encodeURIComponent(artist.textContent + ' ' + tracks[i].replace('/', ' '));
-	}
-	
-	var xhr = new XMLHttpRequest();
-	xhr.onload = ytListener;
-	xhr.onerror = ytError;
-	xhr.open('get', 'https://www.googleapis.com/youtube/v3/search?q=' + search + '&maxResults=1&part=snippet&key=***REMOVED***');
-	xhr.send();
-}
-
-
-function getYoutube(i){
-	if(i<tracks.length){
-		console.log('Getting tracks')
-		youtube(i)
-	} else {
-		return;
-	}
-}
-
-
-
-/*function reqListener() { 
-	var arr = JSON.parse(this.responseText);
-	makeUrl(arr)
-};
-
-function reqError(err) {  
-	console.log('Error: ', err);  
-};
-
-var xhr = new XMLHttpRequest();
-xhr.onload = reqListener;
-xhr.onerror = reqError;
-xhr.open('get', 'https://www.googleapis.com/youtube/v3/search?q=alex%20g%20bobby&maxResults=1&part=snippet&key=AIzaSyBgCx9N47D4w1PoL9rC0YTvvxVU-PsDBEk');
-xhr.send();
-
-function makeUrl(data){
-	var id = data.items[0].id.videoId
-	var url = 'https://www.youtube.com/watch?v=' + id;
-	console.log(url)
-}*/
-
-
-/*
-function makeUrl(data){
-			var id = data.items[0].id.videoId
-			var url = 'https://www.youtube.com/watch?v=' + id;
-			console.log(url)*/

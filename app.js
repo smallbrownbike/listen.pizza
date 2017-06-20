@@ -3,6 +3,7 @@ const express = require('express'),
 			bodyParser = require('body-parser'),
 			mongoose = require('mongoose'),
 			methodOverride = require('method-override'),
+			request = require('request'),
 			Album = require('./models/album'),
 			User = require('./models/user'),
 			app = express(),
@@ -157,6 +158,57 @@ app.get('/logout', isLoggedIn, (req, res) => {
 	res.redirect('/login')
 })
 
+app.post('/api', isLoggedIn, (req, res) => {
+	if(req.body.topAlbums){
+		request('https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=' + req.body.topAlbums + '&api_key=***REMOVED***&format=json', function (error, response, body) {
+			if(error){
+				console.log(error)
+			} else {
+				res.send(body);
+			}
+		});
+	}
+	if(req.body.topTracks){
+		request('https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=' + req.body.topTracks +  '&limit=10&api_key=***REMOVED***&format=json', function (error, response, body) {
+			if(error){
+				console.log(error)
+			} else {
+				res.send(body);
+			}
+		});
+	}
+	if(req.body.similar){
+		request('https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' + req.body.similar +  '&limit=1&api_key=***REMOVED***&format=json', function (error, response, body) {
+			if(error){
+				console.log(error)
+			} else {
+				res.send(body);
+			}
+		});
+	}
+	if(req.body.albumInfo){
+		console.log(req.body.albumInfo)
+		var artist = req.body.albumInfo[0];
+		var album = req.body.albumInfo[1];
+		request('https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=***REMOVED***&artist=' + artist + '&album=' + album +'&format=json', function (error, response, body) {
+			if(error){
+				console.log(error)
+			} else {
+				res.send(body);
+			}
+		});
+	}
+	if(req.body.youtube){
+		request('https://www.googleapis.com/youtube/v3/search?q=' + req.body.youtube + '&maxResults=1&part=snippet&key=***REMOVED***', function (error, response, body) {
+			if(error){
+				console.log(error)
+			} else {
+				res.send(body);
+			}
+		});
+	}
+})
+
 app.get('*', (req, res) => {
 	res.render('404')
 })
@@ -179,6 +231,6 @@ function isLoggedInLogin(req, res, next){
 app.listen(process.env.PORT, process.env.IP, function(){
 	console.log('Server running')
 });
-/*app.listen('3000', function(){
-	console.log('Server running')
-});*/
+// app.listen('3000', function(){
+// 	console.log('Server running')
+// });
