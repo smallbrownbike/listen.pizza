@@ -24,11 +24,13 @@ table.innerHTML = '<tr><td><div class="ui center aligned container"><h4>Gatherin
 
 ///album request
 function albumInfoListener(){
+	console.log(this.responseText)
 	generateContent(JSON.parse(this.responseText))
 }
 var params = {
-	albumInfo: decodeURI(window.location.pathname.slice(7)).split('+')
+	albumInfo: window.location.pathname.slice(7).split('+')
 }
+console.log(params.albumInfo)
 var xhr = new XMLHttpRequest();
 xhr.onload = albumInfoListener;
 xhr.open('POST', '/api');
@@ -79,7 +81,7 @@ function generateContent(data) {
 		youtube(0);
 		function youtube(i){
 			if(i<tracks.length){
-				var search = encodeURIComponent(artist.textContent + ' ' + tracks[i].replace('/', ' '));
+				var search = artist.textContent + ' ' + encodeURIComponent(tracks[i].replace('/', ' '));
 
 				function youtubeListener(){
 					generateYoutube(JSON.parse(this.responseText))

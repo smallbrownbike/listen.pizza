@@ -38,8 +38,9 @@ function topAlbumsListener(){
 	showTopAlbums(JSON.parse(this.responseText))
 }
 var params = {
-	topAlbums: decodeURIComponent(window.location.pathname.slice(15))
+	topAlbums: window.location.pathname.slice(15)
 }
+console.log(window.location.pathname.slice(15))
 var xhr = new XMLHttpRequest();
 xhr.onload = topAlbumsListener;
 xhr.open('POST', '/api');
@@ -59,7 +60,7 @@ function showTopAlbums(data){
 		} else {
 			image = 'https://s-media-cache-ak0.pinimg.com/originals/b8/9d/17/b89d17a8d96248e8ce344de075372c24.jpg';
 		}
-		html += "<div id='card' class='searchAlbumCard ui card'><a class='image' id='imageContainer' href='/album/" + encodeURIComponent(artist.replace(/[!'()*]/g, escape)) + '+' + encodeURIComponent(album.replace(/[!'()*]/g, escape)) + "'><img id='image' class='img' src='" + image + "'></a><div id='cardInfo' class='ui center aligned container'><h4 id='cardArtist'>" + artist + "</h4><h7>" + album + "</h7></div></div>"
+		html += "<div id='card' class='searchAlbumCard ui card'><a class='image' id='imageContainer' href='/album/" + encodeURIComponent(artist).replace(/[!'()*]/g, escape) + '+' + encodeURIComponent(album).replace(/[!'()*]/g, escape) + "'><img id='image' class='img' src='" + image + "'></a><div id='cardInfo' class='ui center aligned container'><h4 id='cardArtist'>" + artist + "</h4><h7>" + album + "</h7></div></div>"
 	}
 	
 	searchAlbumList.innerHTML = html;
@@ -78,7 +79,7 @@ function showTopAlbums(data){
 		} else {
 			image = 'https://s-media-cache-ak0.pinimg.com/originals/b8/9d/17/b89d17a8d96248e8ce344de075372c24.jpg';
 		}
-		expandState += "<div id='hiddenCards' class='ui card'><a class='image' id='imageContainer' href='/album/" + encodeURIComponent(artist.replace(/[!'()*]/g, escape)) + '+' + encodeURIComponent(album.replace(/[!'()*]/g, escape)) + "'><img id='image' class='img' src='" + image + "'></a><div id='cardInfo' class='ui center aligned container'><h4 id='cardArtist'>" + artist + "</h4><h7>" + album + "</h7></div></div>"
+		expandState += "<div id='hiddenCards' class='ui card'><a class='image' id='imageContainer' href='/album/" + encodeURIComponent(artist).replace(/[!'()*]/g, escape) + '+' + encodeURIComponent(album).replace(/[!'()*]/g, escape) + "'><img id='image' class='img' src='" + image + "'></a><div id='cardInfo' class='ui center aligned container'><h4 id='cardArtist'>" + artist + "</h4><h7>" + album + "</h7></div></div>"
 	}
 	var currentState;
 	currentState = searchAlbumList.innerHTML;
@@ -99,7 +100,7 @@ function topTracksListener(){
 	showTopTracks(JSON.parse(this.responseText))
 }
 var params = {
-	topTracks: decodeURIComponent(window.location.pathname.slice(15))
+	topTracks: window.location.pathname.slice(15)
 }
 var xhr = new XMLHttpRequest();
 xhr.onload = topTracksListener;
@@ -123,8 +124,9 @@ function showTopTracks(data){
 				generateYoutube(JSON.parse(this.responseText))
 			}
 			var params = {
-				youtube: decodeURIComponent(window.location.pathname.slice(15) + ' ' + tracks[i].replace('/', ' '))
+				youtube: window.location.pathname.slice(15) + ' ' + encodeURIComponent(tracks[i].replace('/', ' '))
 			}
+			console.log(params.youtube)
 			var xhr = new XMLHttpRequest();
 			xhr.onload = youtubeListener;
 			xhr.open('POST', '/api');
@@ -138,6 +140,7 @@ function showTopTracks(data){
 	var id = [];
 	var cleanId = [];
 	function generateYoutube(data) {
+		console.log(data)
 		var arr = data;
 		if(arr.items.length === 0){
 			links.push('undefined')
@@ -187,7 +190,7 @@ function similarListener(){
 	generateBio(arr.artist);
 }
 var params = {
-	similar: decodeURIComponent(window.location.pathname.slice(15))
+	similar: window.location.pathname.slice(15)
 }
 var xhr = new XMLHttpRequest();
 xhr.onload = similarListener;
