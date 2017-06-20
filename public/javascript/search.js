@@ -38,7 +38,7 @@ function topAlbumsListener(){
 	showTopAlbums(JSON.parse(this.responseText))
 }
 var params = {
-	topAlbums: decodeURI(window.location.pathname.slice(15))
+	topAlbums: decodeURIComponent(window.location.pathname.slice(15))
 }
 var xhr = new XMLHttpRequest();
 xhr.onload = topAlbumsListener;
@@ -52,14 +52,14 @@ function showTopAlbums(data){
 	
 	for(var i=0;i<4;i++){
 		var image;
-		var artist = data.topalbums.album[i].artist.name.replace(/[!'()*]/g, escape);
-		var album = data.topalbums.album[i].name.replace(/[!'()*]/g, escape);
+		var artist = data.topalbums.album[i].artist.name;
+		var album = data.topalbums.album[i].name;
 		if(data.topalbums.album[i].image[3]['#text']){
 			image = data.topalbums.album[i].image[3]['#text']
 		} else {
 			image = 'https://s-media-cache-ak0.pinimg.com/originals/b8/9d/17/b89d17a8d96248e8ce344de075372c24.jpg';
 		}
-		html += "<div id='card' class='searchAlbumCard ui card'><a class='image' id='imageContainer' href='/album/" + encodeURIComponent(artist) + '+' + encodeURIComponent(album) + "'><img id='image' class='img' src='" + image + "'></a><div id='cardInfo' class='ui center aligned container'><h4 id='cardArtist'>" + decodeURI(artist) + "</h4><h7>" + decodeURI(album) + "</h7></div></div>"
+		html += "<div id='card' class='searchAlbumCard ui card'><a class='image' id='imageContainer' href='/album/" + encodeURIComponent(artist.replace(/[!'()*]/g, escape)) + '+' + encodeURIComponent(album.replace(/[!'()*]/g, escape)) + "'><img id='image' class='img' src='" + image + "'></a><div id='cardInfo' class='ui center aligned container'><h4 id='cardArtist'>" + artist + "</h4><h7>" + album + "</h7></div></div>"
 	}
 	
 	searchAlbumList.innerHTML = html;
@@ -71,14 +71,14 @@ function showTopAlbums(data){
 	var expandState = '';
 	for(var i=4;i<48;i++){
 		var image;
-		var artist = data.topalbums.album[i].artist.name.replace(/[!'()*]/g, escape);
-		var album = data.topalbums.album[i].name.replace(/[!'()*]/g, escape);
+		var artist = data.topalbums.album[i].artist.name;
+		var album = data.topalbums.album[i].name;
 		if(data.topalbums.album[i].image[3]['#text']){
 			image = data.topalbums.album[i].image[3]['#text']
 		} else {
 			image = 'https://s-media-cache-ak0.pinimg.com/originals/b8/9d/17/b89d17a8d96248e8ce344de075372c24.jpg';
 		}
-		expandState += "<div id='hiddenCards' class='ui card'><a class='image' id='imageContainer' href='/album/" + encodeURIComponent(artist) + '+' + encodeURIComponent(album) + "'><img id='image' class='img' src='" + image + "'></a><div id='cardInfo' class='ui center aligned container'><h4 id='cardArtist'>" + decodeURI(artist) + "</h4><h7>" + decodeURI(album) + "</h7></div></div>"
+		expandState += "<div id='hiddenCards' class='ui card'><a class='image' id='imageContainer' href='/album/" + encodeURIComponent(artist.replace(/[!'()*]/g, escape)) + '+' + encodeURIComponent(album.replace(/[!'()*]/g, escape)) + "'><img id='image' class='img' src='" + image + "'></a><div id='cardInfo' class='ui center aligned container'><h4 id='cardArtist'>" + artist + "</h4><h7>" + album + "</h7></div></div>"
 	}
 	var currentState;
 	currentState = searchAlbumList.innerHTML;
@@ -99,7 +99,7 @@ function topTracksListener(){
 	showTopTracks(JSON.parse(this.responseText))
 }
 var params = {
-	topTracks: decodeURI(window.location.pathname.slice(15))
+	topTracks: decodeURIComponent(window.location.pathname.slice(15))
 }
 var xhr = new XMLHttpRequest();
 xhr.onload = topTracksListener;
@@ -123,7 +123,7 @@ function showTopTracks(data){
 				generateYoutube(JSON.parse(this.responseText))
 			}
 			var params = {
-				youtube: decodeURI(window.location.pathname.slice(15) + ' ' + tracks[i].replace('/', ' '))
+				youtube: decodeURIComponent(window.location.pathname.slice(15) + ' ' + tracks[i].replace('/', ' '))
 			}
 			var xhr = new XMLHttpRequest();
 			xhr.onload = youtubeListener;
@@ -187,7 +187,7 @@ function similarListener(){
 	generateBio(arr.artist);
 }
 var params = {
-	similar: decodeURI(window.location.pathname.slice(15))
+	similar: decodeURIComponent(window.location.pathname.slice(15))
 }
 var xhr = new XMLHttpRequest();
 xhr.onload = similarListener;
