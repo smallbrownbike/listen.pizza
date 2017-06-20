@@ -103,7 +103,7 @@ app.get('/album/:name', isLoggedIn, (req, res) => {
 	arr = req.params.name.split('+');
 	User.findOne(
 		{username: req.user.username},
-		{albums: {$elemMatch: {title: decodeURI(arr[1])}}}
+		{albums: {$elemMatch: {title: decodeURIComponent(arr[1])}}}
 	, (err, album) => {
 		if(err){
 			console.log(err)
