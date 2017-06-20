@@ -94,7 +94,6 @@ function generateContent(data) {
 				xhr.send(JSON.stringify(params));
 			}
 			function generateYoutube(data) {
-				console.log(data)
 				var arr = data;
 				if(arr.items.length === 0){
 					links.push('undefined')

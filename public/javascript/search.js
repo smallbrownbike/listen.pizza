@@ -35,7 +35,6 @@ table.innerHTML = '<tr><td><div class="ui center aligned container"><h4>Gatherin
 
 ///top albums request
 function topAlbumsListener(){
-	console.log(JSON.parse(this.responseText))
 	showTopAlbums(JSON.parse(this.responseText))
 }
 var params = {
@@ -139,7 +138,6 @@ function showTopTracks(data){
 	var id = [];
 	var cleanId = [];
 	function generateYoutube(data) {
-		console.log(data)
 		var arr = data;
 		if(arr.items.length === 0){
 			links.push('undefined')
