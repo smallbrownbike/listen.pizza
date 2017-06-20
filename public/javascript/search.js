@@ -165,7 +165,7 @@ function showTopTracks(data){
 		var html = '<tbody>'
 		for(var i=0; i<5; i++){
 			if(links[i].includes('undefined')){
-				html += '<tr><td id="trackName">' + tracks[i] + '</td>'
+				html += '<tr><td id="trackName">' + tracks[i] + '<button id="yt" class="ui small basic grey disabled button">Listen</button>' + '</td>'
 			} else {
 				html += '<tr><td id="trackName">' + tracks[i] + ' ' + links[i] + '</td>'
 			}

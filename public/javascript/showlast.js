@@ -119,7 +119,7 @@ function generateContent(data) {
 				var html = '<tbody>'
 				for(var i=0; i<tracks.length; i++){
 					if(links[i].includes('undefined')){
-						html += '<div class="ui text container"><tr><td id="trackName">' + tracks[i] + '</td></tr></div>'
+						html += '<div class="ui text container"><tr><td id="trackName">' + tracks[i] + ' ' + '<button id="yt" class="ui small basic grey disabled button">Listen</button>' + '</td></tr></div>'
 					} else {
 						html += '<div class="ui text container"><tr><td id="trackName">' + tracks[i] + ' ' + links[i] + '</td></tr></div>'
 					}
