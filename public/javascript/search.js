@@ -122,6 +122,7 @@ function showTopTracks(data){
 		html+='</tbody>';
 		table.innerHTML = html;
 		trackName = document.querySelectorAll('#trackName')
+		yt = document.querySelectorAll('#yt');
 		
 		youtube(0)
 	}
@@ -146,7 +147,7 @@ function showTopTracks(data){
 	var id = [];
 	function generateYoutube(data, i) {
 		var numbers = [0,2,4,6,8,1,3,5,7,9]
-		if(data.items.length === 0){
+		if(data.items[0].id.kind !== 'youtube#video'){
 			trackName.item(numbers[i]).innerHTML = tracks[i] + '<button id="yt" class="ui small basic grey disabled button">Listen</button>'
 			id.push('undefined')
 		} else {
@@ -161,7 +162,7 @@ function showTopTracks(data){
 					cleanId.push(id[i])
 				}
 			}
-			playlist.innerHTML = "<a target='_blank' href='https://www.youtube.com/watch_videos?video_ids=" + cleanId.join(',') + "'>Play All</a>";
+			playlist.innerHTML = "<a id='playList' target='_blank' href='https://www.youtube.com/watch_videos?video_ids=" + cleanId.join(',') + "'>Play All</a>";
 		}
 	};
 }

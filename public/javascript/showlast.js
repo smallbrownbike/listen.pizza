@@ -36,8 +36,7 @@ xhr.send(JSON.stringify(params));
 
 ///main content generation/youtube request
 function generateContent(data) {
-	var arr = data;
-	if(add.textContent.trim() !== arr.album.name){
+	if(add.textContent.trim() !== data.album.name){
 		add.style.display = 'block';
 		add.innerHTML = '<div id="addButton" class="ui basic green button" data="" data-tooltip="Add this album to your collection!" data-position="top center">Add</div>';
 		var addButton = document.getElementById('addButton');
@@ -46,32 +45,32 @@ function generateContent(data) {
 			var xhr = new XMLHttpRequest();
 			var params = {
 				added: Date.now(),
-				title: arr.album.name,
-				artist: arr.album.artist,
-				image: arr.album.image[3]['#text']				
+				title: data.album.name,
+				artist: data.album.artist,
+				image: data.album.image[3]['#text']				
 			};
 			xhr.open("POST", "/collection", true); ///<----- test nothing here
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.send(JSON.stringify(params));
 		})
 	}
-	artist.innerHTML = '<a href="/artist/search/' + encodeURIComponent(arr.album.artist) + '">' + arr.album.artist + '</a> - ';
-	album.textContent = arr.album.name;
+	artist.innerHTML = '<a href="/artist/search/' + encodeURIComponent(data.album.artist) + '">' + data.album.artist + '</a> - ';
+	album.textContent = data.album.name;
 	
 	title.textContent = artist.textContent + album.textContent;
-	var img = arr.album.image[3]['#text'];
+	var img = data.album.image[3]['#text'];
 	
 	image.innerHTML = '<img class="ui image" src="' + img + '">';
 	bg.style.backgroundImage = 'url(' + img + ')';
-	arr.album.tags.tag.forEach((i) => {
+	data.album.tags.tag.forEach((i) => {
 		tags.innerHTML += '<a target="_blank" id="tag" href="' + i.url + '" class="ui tag label">' + i.name + '</a>'
 	})
-	if(arr.album.wiki){
-		summary = arr.album.wiki.summary;
+	if(data.album.wiki){
+		summary = data.album.wiki.summary;
 		review.innerHTML = summary;
 	}
-	if(arr.album.tracks.track.length > 0){
-		arr.album.tracks.track.forEach((i) => {
+	if(data.album.tracks.track.length > 0){
+		data.album.tracks.track.forEach((i) => {
 			tracks.push(i.name)
 		});
 		var html = '<tbody>'
@@ -105,13 +104,12 @@ function generateContent(data) {
 		};
 			var id = [];
 			function generateYoutube(data, i) {
-				var arr = data;
-				if(arr.items.length === 0){
-					trackName.item(i).innerHTML = '<button id="yt" class="ui small basic grey disabled button">Listen</button>';
+				if(data.items[0].id.kind !== 'youtube#video'){
+					trackName.item(i).innerHTML = tracks[i] + '<button id="yt" class="ui small basic grey disabled button">Listen</button>';
 					id.push('undefined');
 				} else {
 					trackName.item(i).innerHTML = tracks[i] + '<a target="_blank" id="yt" class="ui small basic blue button" href="https://www.youtube.com/watch?v=' + data.items[0].id.videoId + '">Listen</a>'
-					id.push(arr.items[0].id.videoId)
+					id.push(data.items[0].id.videoId)
 				}
 				youtube(id.length)
 				if(id.length === tracks.length){
@@ -124,21 +122,8 @@ function generateContent(data) {
 					playlist.innerHTML = "<a target='_blank' href='http://www.youtube.com/watch_videos?video_ids=" + cleanId.join(',') + "' id='playButton' class='ui basic blue button'>Play All</a>";
 				}
 			};
-			function generateSongList(){
-				playlist.innerHTML = "<a target='_blank' href='http://www.youtube.com/watch_videos?video_ids=" + cleanId.join(',') + "' id='playButton' class='ui basic blue button'>Play All</a>"
-				table.innerHTML = '';
-				var html = '<tbody>'
-				for(var i=0; i<tracks.length; i++){
-					if(links[i].includes('undefined')){
-						html += '<div class="ui text container"><tr><td id="trackName">' + tracks[i] + ' ' + '<button id="yt" class="ui small basic grey disabled button">Listen</button>' + '</td></tr></div>'
-					} else {
-						html += '<div class="ui text container"><tr><td id="trackName">' + tracks[i] + ' ' + links[i] + '</td></tr></div>'
-					}
-				}
-				html+='</tbody>'
-				table.innerHTML = html;
-			}
+			
 	} else {
-		table.innerHTML = '<div class="ui negative message"></i><div class="ui center aligned container">Darn! We couldn\'t find the tracklist for <strong>' + arr.album.artist + '-' + arr.album.name + '</strong>.</div></div>'
+		table.innerHTML = '<div class="ui negative message"></i><div class="ui center aligned container">Darn! We couldn\'t find the tracklist for <strong>' + data.album.artist + '-' + data.album.name + '</strong>.</div></div>'
 	}
 };
