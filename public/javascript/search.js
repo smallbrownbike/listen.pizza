@@ -149,7 +149,7 @@ function showTopTracks(data){
 		var numbers = [0,2,4,6,8,1,3,5,7,9]
 		if(data.items[0].id.kind !== 'youtube#video'){
 			trackName.item(numbers[i]).innerHTML = tracks[i] + '<button id="yt" class="ui small basic grey disabled button">Listen</button>'
-			id.push('undefined')
+			id.push(undefined)
 		} else {
 			trackName.item(numbers[i]).innerHTML = tracks[i] + '<a target="_blank" id="yt" class="ui small basic blue button" href="https://www.youtube.com/watch?v=' + data.items[0].id.videoId + '">Listen</a>';
 			id.push(data.items[0].id.videoId)
