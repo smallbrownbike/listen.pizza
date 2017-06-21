@@ -143,7 +143,6 @@ search.addEventListener('keyup', (e) => {
 				albumList.innerHTML = ''
 				for(var i=0;i<results.length;i++){
 					var trashId = results[i][4];
-					console.log(results[i])
 					
 					albumList.innerHTML += "<div id='card' class='card'><a class='image' id='imageContainer' href=\'/album/" + encodeURIComponent(results[i][0]).replace(/[!'()*]/g, escape) + "+" + encodeURIComponent(results[i][1]).replace(/[!'()*]/g, escape) + "\'><img id='image' class='img' title='" + results[i][1] + "' src='" + results[i][2] + "'></a><div id='cardInfo' class='ui center aligned container'><a id='artistLink' href='artist/search/" + encodeURIComponent(results[i][0].replace(/[!'()*]/g, escape)) + "'><h4 id='cardArtist'>" + results[i][0] + "</h4></a><h7 id='title'>" + results[i][1] + "</h7></div><form id='trash' action='/collection/" + trashId + "?_method=DELETE' method='POST'><button id='invisButton' class='ui mini red button'>Delete</button></form></div>"		 
 				};
