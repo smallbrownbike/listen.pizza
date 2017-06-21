@@ -24,13 +24,11 @@ table.innerHTML = '<tr><td><div class="ui center aligned container"><h4>Gatherin
 
 ///album request
 function albumInfoListener(){
-	console.log(this.responseText)
 	generateContent(JSON.parse(this.responseText))
 }
 var params = {
 	albumInfo: window.location.pathname.slice(7).split('+')
 }
-console.log(params.albumInfo)
 var xhr = new XMLHttpRequest();
 xhr.onload = albumInfoListener;
 xhr.open('POST', '/api');
@@ -78,13 +76,22 @@ function generateContent(data) {
 		arr.album.tracks.track.forEach((i) => {
 			tracks.push(i.name)
 		});
+		var html = '<tbody>'
+		for(var i=0; i<tracks.length; i++){
+			html += '<div class="ui text container"><tr><td id="trackName">' + tracks[i]  + '<button id="yt" class="ui small basic disabled button">Listen</button>' + '</td></tr></div>'
+		}
+		playlist.innerHTML = "<a id='playButton' class='ui basic disabled button'>Play All</a>"
+		html+='</tbody>'
+		table.innerHTML = html;
+		trackName = document.querySelectorAll('#trackName');
+
 		youtube(0);
 		function youtube(i){
 			if(i<tracks.length){
 				var search = artist.textContent + ' ' + encodeURIComponent(tracks[i].replace('/', ' '));
 
 				function youtubeListener(){
-					generateYoutube(JSON.parse(this.responseText))
+					generateYoutube(JSON.parse(this.responseText), i)
 				}
 				var params = {
 					youtube: search
@@ -94,23 +101,29 @@ function generateContent(data) {
 				xhr.open('POST', '/api');
 				xhr.setRequestHeader('Content-Type', 'application/json');
 				xhr.send(JSON.stringify(params));
+			} else {
+				return;
 			}
-			function generateYoutube(data) {
+		};
+			var id = [];
+			function generateYoutube(data, i) {
 				var arr = data;
 				if(arr.items.length === 0){
-					links.push('undefined')
+					trackName.item(i).innerHTML = '<button id="yt" class="ui small basic grey disabled button">Listen</button>';
+					id.push('undefined');
 				} else {
-					links.push('<a target="_blank" id="yt" class="ui small basic blue button" href="https://www.youtube.com/watch?v=' + arr.items[0].id.videoId + '">Listen</a>');
+					trackName.item(i).innerHTML = tracks[i] + '<a target="_blank" id="yt" class="ui small basic blue button" href="https://www.youtube.com/watch?v=' + data.items[0].id.videoId + '">Listen</a>'
 					id.push(arr.items[0].id.videoId)
 				}
-				youtube(links.length)
-				if(links.length === tracks.length){
+				youtube(id.length)
+				if(id.length === tracks.length){
+					var cleanId = [];
 					for(var i=0; i<id.length;i++){
 						if(id[i] !== undefined){
 							cleanId.push(id[i])
 						}
 					}
-					generateSongList();
+					playlist.innerHTML = "<a target='_blank' href='http://www.youtube.com/watch_videos?video_ids=" + cleanId.join(',') + "' id='playButton' class='ui basic blue button'>Play All</a>";
 				}
 			};
 			function generateSongList(){
@@ -127,7 +140,6 @@ function generateContent(data) {
 				html+='</tbody>'
 				table.innerHTML = html;
 			}
-		}
 	} else {
 		table.innerHTML = '<div class="ui negative message"></i><div class="ui center aligned container">Darn! We couldn\'t find the tracklist for <strong>' + arr.album.artist + '-' + arr.album.name + '</strong>.</div></div>'
 	}

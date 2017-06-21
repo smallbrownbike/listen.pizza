@@ -31,10 +31,6 @@ function WidthChange(mq) {
 }
 ////
 
-///song list loader
-table.innerHTML = '<tr><td><div class="ui center aligned container"><h4>Gathering top songs...</h4><div id="loader" class="ui active centered inline loader"></div></td></tr>';
-////
-
 ///top albums request
 function topAlbumsListener(){
 	showTopAlbums(JSON.parse(this.responseText))
@@ -42,7 +38,6 @@ function topAlbumsListener(){
 var params = {
 	topAlbums: window.location.pathname.slice(15)
 }
-console.log(window.location.pathname.slice(15))
 var xhr = new XMLHttpRequest();
 xhr.onload = topAlbumsListener;
 xhr.open('POST', '/api');
@@ -120,7 +115,6 @@ function showTopTracks(data){
 		});
 		var html = '<tbody>'
 		for(var i=0; i<5; i++){
-			console.log(tracks)
 			html += '<tr><td id="trackName">' + tracks[i] + '<button id="yt" class="ui small basic disabled button">Listen</button>' + '</td>'
 			html += '<td id="trackName">' + tracks[i+5] + '<button id="yt" class="ui small basic disabled button">Listen</button></td></tr>'
 		}
@@ -139,7 +133,6 @@ function showTopTracks(data){
 			var params = {
 				youtube: window.location.pathname.slice(15) + ' ' + encodeURIComponent(tracks[i].replace('/', ' '))
 			}
-			console.log(params.youtube)
 			var xhr = new XMLHttpRequest();
 			xhr.onload = youtubeListener;
 			xhr.open('POST', '/api');
@@ -151,10 +144,8 @@ function showTopTracks(data){
 	}
 
 	var id = [];
-	var cleanId = [];
 	function generateYoutube(data, i) {
 		var numbers = [0,2,4,6,8,1,3,5,7,9]
-		console.log(numbers[i])
 		if(data.items.length === 0){
 			trackName.item(numbers[i]).innerHTML = tracks[i] + '<button id="yt" class="ui small basic grey disabled button">Listen</button>'
 			id.push('undefined')
@@ -171,27 +162,8 @@ function showTopTracks(data){
 				}
 			}
 			playlist.innerHTML = "<a target='_blank' href='https://www.youtube.com/watch_videos?video_ids=" + cleanId.join(',') + "'>Play All</a>";
-			// table.innerHTML = '';
-			// generateSongList();
 		}
 	};
-	function generateSongList(){
-		var html = '<tbody>'
-		for(var i=0; i<5; i++){
-			if(links[i].includes('undefined')){
-				html += '<tr><td id="trackName">' + tracks[i] + '<button id="yt" class="ui small basic grey disabled button">Listen</button>' + '</td>'
-			} else {
-				html += '<tr><td id="trackName">' + tracks[i] + ' ' + links[i] + '</td>'
-			}
-			if(links[i+5].includes('undefined')){
-					html += '<td id="trackName">' + tracks[i+5] + '</td></tr>'
-				} else {
-					html += '<td id="trackName">' + tracks[i+5] + ' ' + links[i+5] + '</td></tr>'
-				}
-			}
-		html+='</tbody>'
-		table.innerHTML = html;
-	}
 }
 
 ////
