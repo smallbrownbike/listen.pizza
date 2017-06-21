@@ -19,8 +19,6 @@ var cleanId = [];
 
 ///////////////////////////////////////////
 
-///song list loader
-table.innerHTML = '<tr><td><div class="ui center aligned container"><h4>Gathering songs...</h4><div id="loader" class="ui active centered inline loader"></div></td></tr>';
 
 ///album request
 function albumInfoListener(){
