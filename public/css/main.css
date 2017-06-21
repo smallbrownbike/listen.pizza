@@ -79,13 +79,13 @@ img{
 	width: 100%;
 }
 #addButton:active{
-	background: rgba(34, 36, 38, 0.15) !important;
+	background: rgba(34, 36, 38, 0.1) !important;
 }
 #playButton:active{
-	background: rgba(34, 36, 38, 0.15) !important;
+	background: rgba(34, 36, 38, 0.1) !important;
 }
 #yt:active{
-	background: rgba(34, 36, 38, 0.15) !important;
+	background: rgba(34, 36, 38, 0.1) !important;
 }
 #invisForm{
 	display: none;
