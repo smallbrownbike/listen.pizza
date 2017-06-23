@@ -66,6 +66,12 @@ img{
     background-size: cover;
     filter:blur(8px);  
 }
+#random{
+	cursor: pointer;
+}
+#randomNew{
+	margin: 0 auto;
+}
 
 #playlist{
 	width: 100%;
@@ -85,6 +91,9 @@ img{
 	background: rgba(34, 36, 38, 0.1) !important;
 }
 #yt:active{
+	background: rgba(34, 36, 38, 0.1) !important;
+}
+#listenButton:active{
 	background: rgba(34, 36, 38, 0.1) !important;
 }
 #invisForm{
@@ -307,6 +316,53 @@ body{
 .grey{
 	color: #E0E1E2 !important;
 }
+
+.fullWidth{
+	width: 100%;
+}
+#closeIcon{
+	opacity: 0.7;
+	cursor: pointer;
+	margin: 0;
+	height: 25px;
+	width: 20px;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+#closeIcon:hover{
+	opacity: 1;
+}
+#similarContent{
+	margin-top: 5px;
+}
+#message{
+	display: none;
+	margin: 0px  0px 15px 0px !important;
+
+}
+#similarCollection{
+	display: none;
+	padding-right: 2rem;
+	margin: 0 !important;
+}
+#artistSuggestion{
+	margin-bottom: 5px;
+}
+#randomButton{
+	width: 100%;
+}
+
+@media only screen and (max-width: 1280px){
+	#similarCollection{
+		display: none !important;
+	}
+}@media only screen and (min-width: 1280px){
+	#message{
+		display: none !important;
+	}
+}
+
 
 @media only screen and (max-width: 650px){
 

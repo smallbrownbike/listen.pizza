@@ -12,7 +12,34 @@
 			<span id='edit'>Edit</span>
 		</div>
 	</div>
-	<div id='mainAlbumSegment' class='ui container segment'>
+	<div id='mainAlbumSegment' class="ui segment">
+	<div id='message' class='ui center aligned container'>
+	<div class="ui message">
+		<i id='closeIcon' class="close icon"></i>
+		<div id='artistSuggestionContainer' class='ui container'>
+		<div id='artistSuggestion' class="header">
+			New Recommendation			
+		</div>
+			Check out <a id='listened' target='_blank' href=''></a>
+		</div>
+	</div>
+	</div>
+  <div id='similarCollection' class="ui right rail">
+		<div id='similarSegment' class='ui segment'>
+		<i id='closeIcon' class="close icon"></i>	
+    <div id='similarContent' class="ui center aligned container">
+			Have you listened to <a id='randomArtist' target='_blank' href=''></a>?
+      <div class="ui card">
+				<div id='randomImage' class="image">
+					
+				</div>
+			</div>
+			<span id='randomButtonContainer'>
+				<button class="ui basic disabled button">Listen</button>
+			</span>
+    </div>
+  </div>
+  </div>
 		<div id='albumList' class='ui four cards'>
 			{{#each album}}
 			
@@ -33,7 +60,9 @@
 			</div>
 			{{/each}}
 		</div>
+		</div>
 	</div>
+
 </div>
 <script src='/javascript/albums.js'></script>
 <script src='/javascript/searchListener.js'></script>
