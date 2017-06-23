@@ -24,7 +24,7 @@
 		</div>
 	</div>
 	</div>
-  <div id='similarCollection' class="ui right rail">
+  {{!--<div id='similarCollection' class="ui right rail">
 		<div id='similarSegment' class='ui segment'>
 		<i id='closeIcon' class="close icon"></i>	
     <div id='similarContent' class="ui center aligned container">
@@ -39,7 +39,7 @@
 			</span>
     </div>
   </div>
-  </div>
+  </div>--}}
 		<div id='albumList' class='ui four cards'>
 			{{#each album}}
 			
@@ -62,7 +62,9 @@
 		</div>
 		</div>
 	</div>
-
 </div>
 <script src='/javascript/albums.js'></script>
 <script src='/javascript/searchListener.js'></script>
+{{#if date}}
+<script src='/javascript/recommendations.js'></script>
+{{/if}}

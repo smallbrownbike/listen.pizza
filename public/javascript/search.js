@@ -207,7 +207,8 @@ function generateSimilar(data){
 		}
 		var name = i.name;
 		similarArtistColumns.innerHTML += "<div id='similarArtistColumn' class='column'><div id='similarArtistCard' class='ui card'><a id='imageContainer' href='/artist/search/" + encodeURIComponent(name.replace('/', ' ')) + "' class='image'><img id='similarImage' src='" + image + "'><div id='similarArtistContainer' class='ui text container'><div id='similarArtistName'>" + name + "</div></div></a></div></div>";
-		
+
 	})
 	similarArtistDiv.style.display = 'block';
 }
+
