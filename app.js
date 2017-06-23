@@ -51,7 +51,13 @@ app.get('/collection', isLoggedIn, (req, res) => {
 		if(err){
 			console.log(err)
 		} else {
-			res.render('collection', {album: album})
+			var albumDate = album[0].albums.added;
+			if(Date.now() - albumDate > 300000){
+				res.render('collection', {album: album, date: albumDate})
+			} else {
+				res.render('collection', {album: album})
+			}
+			
 		}
 	})
 });
