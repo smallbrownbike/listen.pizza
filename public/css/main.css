@@ -352,6 +352,9 @@ body{
 #randomButton{
 	width: 100%;
 }
+#randomButton:active{
+	background: rgba(34, 36, 38, 0.1) !important;
+}
 
 @media only screen and (max-width: 1280px){
 	#similarCollection{
