@@ -177,8 +177,17 @@ app.post('/api', isLoggedIn, (req, res) => {
 			}
 		});
 	}
+	if(req.body.similarRandom){
+		request('https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=' + req.body.similarRandom +  '&limit=20&api_key=***REMOVED***&format=json', function (error, response, body) {
+			if(error){
+				console.log(error)
+			} else {
+				res.send(body);
+			}
+		});
+	}
 	if(req.body.similar){
-		request('https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' + req.body.similar +  '&limit=1&api_key=***REMOVED***&format=json', function (error, response, body) {
+		request('https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' + req.body.similar +  '&limit=50&api_key=***REMOVED***&format=json', function (error, response, body) {
 			if(error){
 				console.log(error)
 			} else {
