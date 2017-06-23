@@ -235,7 +235,7 @@ function GenerateRandom(data){
 				generateButton(JSON.parse(this.responseText))
 			}
 			var params = {
-				youtube: i.name
+				youtube: i.artist.name + ' ' + i.name
 			}
 			var xhr = new XMLHttpRequest();
 			xhr.onload = youtubeListener;
