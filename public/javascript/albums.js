@@ -204,6 +204,7 @@ function GenerateRandom(data){
 			console.log(artists.indexOf(similarArtist))
 			randomImage.innerHTML = '<img src="' + similarArtist.image[3]['#text'] + '">';
 			listened.textContent = similarArtist.name;
+			listened.setAttribute('href', '/artist/search/' + encodeURIComponent(similarArtist.name.replace(/[!'()*]/g, escape)));
 			randomArtistName.textContent = similarArtist.name;
 			randomArtistName.setAttribute('href', '/artist/search/' + encodeURIComponent(similarArtist.name.replace(/[!'()*]/g, escape)));
 			getTopTracks(similarArtist.name)
@@ -253,7 +254,6 @@ function GenerateRandom(data){
 						cleanId.push(id[i])
 					}
 				}
-				listened.setAttribute('href', "https://www.youtube.com/watch_videos?video_ids=" + cleanId.join(','))
 				message.style.display = 'block';
 				similarCollection.style.display = 'block';
 				randomButtonContainer.innerHTML = "<a id='randomButton' class='ui small basic blue button' target='_blank' href='https://www.youtube.com/watch_videos?video_ids=" + cleanId.join(',') + "'>Listen</a>"
