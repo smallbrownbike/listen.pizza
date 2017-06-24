@@ -8,6 +8,6 @@ const albumSchema = new mongoose.Schema({
 });
 
 var Album = mongoose.model('Album', albumSchema);
-//
+
 
 module.exports = Album;

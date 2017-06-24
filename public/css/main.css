@@ -16,8 +16,6 @@ img{
 	margin-top: 25px;
 	width: 400px;
 }
-.basic.button{
-}
 #reviews{
 	margin-top: 15px;
 	margin-bottom: 15px;
@@ -32,7 +30,6 @@ img{
 	margin: 0 auto;
 }
 #card {
-    /* Add shadows to create the "card" effect */
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
 }
@@ -142,9 +139,6 @@ img{
 #albumCollection{
 	margin: 15px 0 15px 0;
 }
-#sortAndDelete{
-
-}
 #cardArtist{
 	margin-bottom: 2px;
 }
@@ -217,8 +211,6 @@ body{
 	margin-top: 0px;
 }
 #searchArtist{
-	
-	
 	margin-bottom: 15px;
 }
 #expandArtist{
@@ -227,18 +219,6 @@ body{
 }
 #songs{
 	display: inline;
-}
-.searchSegment{
-
-}
-#searchAlbumList{
-    
-}
-.searchAlbumCard{
-
-}
-#hiddenCards{
-
 }
 .expand{
 	cursor: pointer;
@@ -356,20 +336,7 @@ body{
 	background: rgba(34, 36, 38, 0.1) !important;
 }
 
-/*@media only screen and (max-width: 1280px){
-	#similarCollection{
-		display: none !important;
-	}*/
-/*}@media only screen and (min-width: 1280px){
-	#message{
-		display: none !important;
-	}
-}*/
-
-
 @media only screen and (max-width: 650px){
-
-	
 
 	#trackName{
 		padding: 0.78571429em 0.78571429em !important;
@@ -380,14 +347,6 @@ body{
 		padding-bottom: 0px;
 		box-shadow: 0px 0px 0px 0px !important;
 	}
-	
- 
-	/*.ui.celled.table tr td:nth-child(2){
-		border-top: 1px solid rgba(34, 36, 38, 0.1) !important;
-	}
-	.ui.celled.table tr td:nth-child(2){
-		border-bottom: 1px solid rgba(34, 36, 38, 0.1) !important;
-	}*/
 
 	.ui.table:not(.unstackable) tr > th, .ui.table:not(.unstackable) tr:not(:first-child) > td{
 		border-top: 1px solid rgba(34, 36, 38, 0.1) !important;

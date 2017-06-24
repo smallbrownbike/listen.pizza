@@ -10,9 +10,7 @@ const express = require('express'),
 			passport = require('passport'),
 			LocalStrategy = require('passport-local');
 
-
-//mongoose.connect('mongodb://localhost/collections');
-mongoose.connect('***REMOVED***');
+mongoose.connect(process.env.MONGO);
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
@@ -24,7 +22,7 @@ app.set('view engine', '.hbs');
 
 //passport config
 app.use(require('express-session')({
-	secret: '***REMOVED***',
+	secret: process.env.SECRET,
 	resave: false,
 	saveUninitialized: false
 }))
@@ -39,14 +37,12 @@ app.use((req, res, next) => {
 	next();
 })
 
+///collection routes
 app.get('/', isLoggedIn, (req, res) => {
 	res.redirect('/collection')
 });
 
-///collection routes
-
 app.get('/collection', isLoggedIn, (req, res) => {
-	console.log(req.user.username)
 	User.aggregate({$match: {username: req.user.username}}, {$unwind: '$albums'}, {$sort: {'albums.added': -1}}, (err, album) => {
 		if(err){
 			console.log(err)
@@ -105,51 +101,13 @@ app.get('/album', isLoggedIn, (req, res) => {
 })
 
 app.get('/album/:name', isLoggedIn, (req, res) => {
-	let arr;
-	arr = req.params.name.split('+');
-	User.findOne(
-		{username: req.user.username},
-		{albums: {$elemMatch: {title: decodeURIComponent(arr[1])}}}
-	, (err, album) => {
-		if(err){
-			console.log(err)
-		} 
-		if(album.albums[0]){
-			res.render('showAlbum', {album: album.albums[0].title})
-		} else {
-			res.render('showAlbum')
-		}
-	
-			
-			
-		
-	})
-	
+	res.render('showAlbum')	
 })
 
+///auth routes
 app.get('/register', isLoggedInLogin, (req, res) => {
 	res.render('registerClosed')
 })
-
-/// comment out
-
-/*app.get('/register', isLoggedInLogin, (req, res) => {
-	res.render('register')
-})
-
-app.post('/register', isLoggedInLogin, (req, res) => {
-	var newUser = new User({email: req.body.email, username: req.body.username});
-	User.register(newUser, req.body.password, (err, user) => {
-		if(err){
-			console.log(err)
-			return res.render('register')
-		}
-		passport.authenticate('local')(req, res, () => {
-			res.redirect('/collection')
-		})
-	})
-})*/
-///
 
 app.get('/login', isLoggedInLogin, (req, res) => {
 	res.render('login')
@@ -164,9 +122,10 @@ app.get('/logout', isLoggedIn, (req, res) => {
 	res.redirect('/login')
 })
 
+///api route
 app.post('/api', isLoggedIn, (req, res) => {
 	if(req.body.topAlbums){
-		request('https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=' + req.body.topAlbums + '&api_key=***REMOVED***&format=json', function (error, response, body) {
+		request('https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=' + req.body.topAlbums + '&api_key=' + process.env.LASTKEY + '&format=json', function (error, response, body) {
 			if(error){
 				console.log(error)
 			} else {
@@ -175,7 +134,7 @@ app.post('/api', isLoggedIn, (req, res) => {
 		});
 	}
 	if(req.body.topTracks){
-		request('https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=' + req.body.topTracks +  '&limit=10&api_key=***REMOVED***&format=json', function (error, response, body) {
+		request('https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=' + req.body.topTracks +  '&limit=10&api_key=' + process.env.LASTKEY + '&format=json', function (error, response, body) {
 			if(error){
 				console.log(error)
 			} else {
@@ -184,7 +143,7 @@ app.post('/api', isLoggedIn, (req, res) => {
 		});
 	}
 	if(req.body.similarRandom){
-		request('https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=' + req.body.similarRandom +  '&limit=20&api_key=***REMOVED***&format=json', function (error, response, body) {
+		request('https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=' + req.body.similarRandom +  '&limit=20&api_key=' + process.env.LASTKEY + '&format=json', function (error, response, body) {
 			if(error){
 				console.log(error)
 			} else {
@@ -193,7 +152,7 @@ app.post('/api', isLoggedIn, (req, res) => {
 		});
 	}
 	if(req.body.similar){
-		request('https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' + req.body.similar +  '&limit=50&api_key=***REMOVED***&format=json', function (error, response, body) {
+		request('https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' + req.body.similar +  '&limit=50&api_key=' + process.env.LASTKEY + '&format=json', function (error, response, body) {
 			if(error){
 				console.log(error)
 			} else {
@@ -202,10 +161,9 @@ app.post('/api', isLoggedIn, (req, res) => {
 		});
 	}
 	if(req.body.albumInfo){
-		console.log(req.body.albumInfo)
 		var artist = req.body.albumInfo[0];
 		var album = req.body.albumInfo[1];
-		request('https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=***REMOVED***&artist=' + artist + '&album=' + album +'&format=json', function (error, response, body) {
+		request('https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=' + process.env.LASTKEY + '&artist=' + artist + '&album=' + album +'&format=json', function (error, response, body) {
 			if(error){
 				console.log(error)
 			} else {
@@ -214,7 +172,7 @@ app.post('/api', isLoggedIn, (req, res) => {
 		});
 	}
 	if(req.body.youtube){
-		request('https://www.googleapis.com/youtube/v3/search?q=' + req.body.youtube + '&maxResults=1&part=snippet&key=***REMOVED***', function (error, response, body) {
+		request('https://www.googleapis.com/youtube/v3/search?q=' + req.body.youtube + '&maxResults=1&part=snippet&key=' + process.env.YOUKEY, function (error, response, body) {
 			if(error){
 				console.log(error)
 			} else {

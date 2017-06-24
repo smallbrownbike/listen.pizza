@@ -13,6 +13,8 @@ title = document.getElementsByTagName('h7'),
 trackName;
 var yt;
 
+////////
+
 /// media query
 if (matchMedia) {
   var mq = window.matchMedia("(min-width: 650px)");
