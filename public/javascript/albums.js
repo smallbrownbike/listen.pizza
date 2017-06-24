@@ -63,7 +63,8 @@ if(!albumList.innerHTML.trim()){
 	}
 
 	///detect long names
-	(function detect(){
+	detect();
+	function detect(){
 	///artist
 		for(var i=0; i < artistList.length; i++){
 			artists.push(artistList.item(i).textContent)
@@ -78,7 +79,7 @@ if(!albumList.innerHTML.trim()){
 				title.item(i).textContent = title.item(i).textContent.slice(0, 25) + '...'
 			}
 		}
-	})();
+	};
 
 	///local search
 	var resultsReady = []
