@@ -87,36 +87,42 @@ if(!albumList.innerHTML.trim()){
 	var revert = albumList.innerHTML;
 	search.addEventListener('keyup', (e) => {
 		if(e.which !== 13){
-		if(search.value.length === 0){
-			albumList.innerHTML = revert;
-		} else if (results.length === 0){
-			albumList.innerHTML = '';
-		}
-		results = []
-		displayResults()
-		function displayResults(){
-			if(search.value){
-				for(var i=0; i<sortArtists.length;i++){
-					sortArtists[i].forEach((j) => {
-						if(j.toLowerCase().indexOf(search.value.toLowerCase()) >= 0){
-							if(results.indexOf(sortArtists[i]) < 0){
-								results.push(sortArtists[i])
-							}
-						}
-					})
-				}
-				if(results.length !== 0){
-					albumList.innerHTML = ''
-					for(var i=0;i<results.length;i++){
-						var trashId = results[i][4];
-						
-						albumList.innerHTML += "<div id='card' class='card'><a class='image' id='imageContainer' href=\'/album/" + encodeURIComponent(results[i][0]).replace(/[!'()*]/g, escape) + "+" + encodeURIComponent(results[i][1]).replace(/[!'()*]/g, escape) + "\'><img id='image' class='img' title='" + results[i][1] + "' src='" + results[i][2] + "'></a><div id='cardInfo' class='ui center aligned container'><a id='artistLink' href='artist/search/" + encodeURIComponent(results[i][0]).replace(/[!'()*]/g, escape) + "'><h4 id='cardArtist'>" + results[i][0] + "</h4></a><h7 id='title'>" + results[i][1] + "</h7></div><form id='trash' action='/collection/" + trashId + "?_method=DELETE' method='POST'><button id='invisButton' class='ui mini red button'>Delete</button></form></div>"		 
-					};
-					detect();
-				}
-				
+			if(search.value.length === 0){
+				message.style.display = 'block'
+				albumList.innerHTML = revert;
 			}
-		}
+		  if(search.value.length > 2){
+				if(message.style.display !== 'none'){
+					message.style.display = 'none';
+				}
+				results = []
+				displayResults()
+				function displayResults(){
+					if(search.value.length){
+						for(var i=0; i<sortArtists.length;i++){
+							sortArtists[i].forEach((j) => {
+								if(j.toLowerCase().indexOf(search.value.toLowerCase()) >= 0){
+									if(results.indexOf(sortArtists[i]) < 0){
+										results.push(sortArtists[i])
+									}
+								}
+							})
+						}
+						if(results.length !== 0){
+							albumList.innerHTML = ''
+							for(var i=0;i<results.length;i++){
+								var trashId = results[i][4];
+								
+								albumList.innerHTML += "<div id='card' class='card'><a class='image' id='imageContainer' href=\'/album/" + encodeURIComponent(results[i][0]).replace(/[!'()*]/g, escape) + "+" + encodeURIComponent(results[i][1]).replace(/[!'()*]/g, escape) + "\'><img id='image' class='img' title='" + results[i][1] + "' src='" + results[i][2] + "'></a><div id='cardInfo' class='ui center aligned container'><a id='artistLink' href='artist/search/" + encodeURIComponent(results[i][0]).replace(/[!'()*]/g, escape) + "'><h4 id='cardArtist'>" + results[i][0] + "</h4></a><h7 id='title'>" + results[i][1] + "</h7></div><form id='trash' action='/collection/" + trashId + "?_method=DELETE' method='POST'><button id='invisButton' class='ui mini red button'>Delete</button></form></div>"		 
+							};
+							detect();
+						}
+					}
+					if (results.length === 0){
+					albumList.innerHTML = '<div id="noMusic"><p>Couldn\'t find <strong>' + search.value.toUpperCase() + '</strong> in your collection. Hit <strong>ENTER</strong> to search sitewide.</p></div>';
+					}
+				}
+			}
 		}
 	})
 
