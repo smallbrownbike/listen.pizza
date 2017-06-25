@@ -197,9 +197,16 @@ app.post('/api', isLoggedIn, (req, res) => {
 		client.lrange(req.body.youtubecache[0], 0, -1, (err, reply) => {
 			if(err){
 				console.log(err)
-			} else if(reply.length > 0){
+			} else if(req.body.youtubecache.length - 1 === reply.length){
 				res.send(reply)
 			} else {
+				client.del(req.body.youtubecache[0], (err, res) => {
+					if(err){
+						console.log(err)
+					} else {
+						console.log(res)
+					}
+				})
 				res.send(JSON.stringify('youtube'))
 			}
 		})
