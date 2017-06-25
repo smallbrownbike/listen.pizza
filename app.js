@@ -101,7 +101,21 @@ app.get('/album', isLoggedIn, (req, res) => {
 })
 
 app.get('/album/:name', isLoggedIn, (req, res) => {
-	res.render('showAlbum')	
+	let arr;
+	arr = req.params.name.split('+');
+	User.findOne(
+		{username: req.user.username},
+		{albums: {$elemMatch: {title: decodeURIComponent(arr[1])}}}
+	, (err, album) => {
+		if(err){
+			console.log(err)
+		} 
+		if(album.albums[0]){
+			res.render('showAlbum', {album: album.albums[0].title})
+		} else {
+			res.render('showAlbum')
+		}		
+	})
 })
 
 ///auth routes
