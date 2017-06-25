@@ -4,8 +4,7 @@ closeIcon = document.getElementById('closeIcon'),
 listened = document.getElementById('listened');
 
 ////////
-
-if(artists){
+if(artists.length > 10){
   var randomNumber = Math.floor(Math.random() * (artists.length - 1)) + 1
   var randomArtist = artists[randomNumber];
 

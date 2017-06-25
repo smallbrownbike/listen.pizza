@@ -88,7 +88,6 @@ if(!albumList.innerHTML.trim()){
 	search.addEventListener('keyup', (e) => {
 		if(e.which !== 13){
 			if(search.value.length === 0){
-				message.style.display = 'block'
 				albumList.innerHTML = revert;
 			}
 		  if(search.value.length > 2){

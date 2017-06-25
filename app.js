@@ -43,17 +43,22 @@ app.get('/', isLoggedIn, (req, res) => {
 });
 
 app.get('/collection', isLoggedIn, (req, res) => {
-	User.aggregate({$match: {username: req.user.username}}, {$unwind: '$albums'}, {$sort: {'albums.added': -1}}, (err, album) => {
-		if(err){
-			console.log(err)
+	User.findOne({username: req.user.username}, (err, user) => {
+		if(user.albums.length >= 1){
+			User.aggregate({$match: {username: req.user.username}}, {$unwind: '$albums'}, {$sort: {'albums.added': -1}}, (err, album) => {
+				if(err){
+					console.log(err)
+				} else {
+					var albumDate = album[0].albums.added;
+					if(Date.now() - albumDate > 300000){
+						res.render('collection', {album: album, date: albumDate})
+					} else {
+						res.render('collection', {album: album})
+					}
+				}
+			})
 		} else {
-			var albumDate = album[0].albums.added;
-			if(Date.now() - albumDate > 300000){
-				res.render('collection', {album: album, date: albumDate})
-			} else {
-				res.render('collection', {album: album})
-			}
-			
+			res.render('collection')
 		}
 	})
 });
