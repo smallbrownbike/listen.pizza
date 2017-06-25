@@ -86,7 +86,7 @@ function generateContent(data) {
 
 		function youtube(i){
 			if(i<tracks.length){
-				var search = encodeURIComponent(data.album.artist) +  ' ' + encodeURIComponent(data.album.name) + ' ' + encodeURIComponent(tracks[i].replace('/', ' '));
+				var search = encodeURIComponent(data.album.artist) +  ' ' + encodeURIComponent(data.album.name) + ' ' + encodeURIComponent(tracks[i]);
 
 				function youtubeListener(){
 					generateYoutube(JSON.parse(this.responseText), i, false)

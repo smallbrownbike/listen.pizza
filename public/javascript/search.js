@@ -135,7 +135,7 @@ function showTopTracks(data){
 				generateYoutube(JSON.parse(this.responseText), i, false)
 			}
 			var params = {
-				youtube: window.location.pathname.slice(15) + ' ' + encodeURIComponent(tracks[i].replace('/', ' '))
+				youtube: window.location.pathname.slice(15) + ' ' + encodeURIComponent(tracks[i])
 			}
 			var xhr = new XMLHttpRequest();
 			xhr.onload = youtubeListener;
