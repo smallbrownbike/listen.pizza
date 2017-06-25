@@ -193,29 +193,56 @@ app.post('/api', isLoggedIn, (req, res) => {
 			}
 		});
 	}
-	if(req.body.youtube){
-		client.get(req.body.youtube, (err, reply) => {
+	if(req.body.youtubecache){
+		client.lrange(req.body.youtubecache[0], 0, -1, (err, reply) => {
 			if(err){
 				console.log(err)
-			} else if(reply){
+			} else if(reply.length > 0){
 				res.send(reply)
 			} else {
-				request('https://www.googleapis.com/youtube/v3/search?q=' + req.body.youtube + '&maxResults=1&part=snippet&key=' + process.env.YOUKEY, function (error, response, body) {
-					if(error){
-						console.log(error)
-					} else {
-						body = JSON.parse(body)
-						if(body.items[0].id.kind !== 'youtube#video'){
-							res.send(JSON.stringify('notfound'))
-						} else {
-							client.set(req.body.youtube, JSON.stringify(body.items[0].id.videoId))
-							res.send(JSON.stringify(body.items[0].id.videoId));
-						}
-					}
-				});
+				res.send(JSON.stringify('youtube'))
 			}
 		})
 		
+	}
+	if(req.body.youtube){
+		var arr = req.body.youtube.split(' ');
+		if(arr.length > 2){
+			var artist = decodeURIComponent(arr[0])
+			var album = decodeURIComponent(arr[1])
+			var song = decodeURIComponent(arr[2])
+			request('https://www.googleapis.com/youtube/v3/search?q=' + encodeURIComponent(artist + ' ' + song) + '&maxResults=1&part=snippet&key=' + process.env.YOUKEY, function (error, response, body) {
+				if(error){
+					console.log(error)
+				} else {
+					body = JSON.parse(body)
+					if(body.items[0].id.kind !== 'youtube#video'){
+						client.rpush(artist + ' ' + album, song + '+notfound')
+						res.send(JSON.stringify('notfound'))
+					} else {
+						client.rpush(artist + ' ' + album, song + '+' + body.items[0].id.videoId)
+						res.send(JSON.stringify(body.items[0].id.videoId));
+					}
+				}
+			});
+		} else {
+			var artist = decodeURIComponent(arr[0])
+			var song = decodeURIComponent(arr[1])
+			request('https://www.googleapis.com/youtube/v3/search?q=' + encodeURIComponent(artist + ' ' + song) + '&maxResults=1&part=snippet&key=' + process.env.YOUKEY, function (error, response, body) {
+				if(error){
+					console.log(error)
+				} else {
+					body = JSON.parse(body)
+					if(body.items[0].id.kind !== 'youtube#video'){
+						client.rpush(artist, song + '+notfound')
+						res.send(JSON.stringify('notfound'))
+					} else {
+						client.rpush(artist, song + '+' + body.items[0].id.videoId)
+						res.send(JSON.stringify(body.items[0].id.videoId));
+					}
+				}
+			});
+		}
 	}
 })
 

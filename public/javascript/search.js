@@ -126,12 +126,14 @@ function showTopTracks(data){
 		trackName = document.querySelectorAll('#trackName')
 		yt = document.querySelectorAll('#yt');
 		
-		youtube(0)
+		youtubecache()
 	}
+
 	function youtube(i){
+		console.log(tracks)
 		if(i<tracks.length){
 			function youtubeListener(){
-				generateYoutube(JSON.parse(this.responseText), i)
+				generateYoutube(JSON.parse(this.responseText), i, false)
 			}
 			var params = {
 				youtube: window.location.pathname.slice(15) + ' ' + encodeURIComponent(tracks[i].replace('/', ' '))
@@ -146,8 +148,43 @@ function showTopTracks(data){
 		}
 	}
 
+
+	function youtubecache(){
+		tracks.unshift(decodeURIComponent(window.location.pathname.slice(15)))
+		console.log(tracks)
+		function youtubeListener(){
+			console.log(this.responseText)
+			if(JSON.parse(this.responseText) === 'youtube'){
+				console.log('hey')
+				tracks.shift()
+				youtube(0)
+			} else {
+				tracks.shift()
+				generateYoutubeCache(JSON.parse(this.responseText))
+			}
+			// generateYoutube(JSON.parse(this.responseText), i)
+		}
+		var params = {
+			youtubecache: tracks
+		}
+		var xhr = new XMLHttpRequest();
+		xhr.onload = youtubeListener;
+		xhr.open('POST', '/api');
+		xhr.setRequestHeader('Content-Type', 'application/json');
+		xhr.send(JSON.stringify(params));
+	}
+
+	function generateYoutubeCache(data){
+		var youtubeSongs = {}
+		data.forEach((i) => {
+			var index = tracks.indexOf(i.split('+')[0])
+			var id = i.split('+')[1]
+			generateYoutube(id, index, true)
+		})
+	}
+
 	var id = [];
-	function generateYoutube(data, i) {
+	function generateYoutube(data, i, cache) {
 		var numbers = [0,2,4,6,8,1,3,5,7,9]
 		if(data === 'notfound'){
 			trackName.item(numbers[i]).innerHTML = tracks[i] + '<button id="yt" class="ui small basic grey disabled button">Listen</button>'
@@ -156,7 +193,9 @@ function showTopTracks(data){
 			trackName.item(numbers[i]).innerHTML = tracks[i] + '<a target="_blank" id="yt" class="ui small basic blue button" href="https://www.youtube.com/watch?v=' + data + '">Listen</a>';
 			id.push(data)
 		}
-		youtube(id.length)
+		if(cache === false){
+			youtube(id.length)
+		}
 		if(id.length === tracks.length){
 			var cleanId = []
 			for(var i=0; i<id.length;i++){

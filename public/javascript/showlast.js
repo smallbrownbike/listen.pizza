@@ -82,13 +82,14 @@ function generateContent(data) {
 		table.innerHTML = html;
 		trackName = document.querySelectorAll('#trackName');
 
-		youtube(0);
+		youtubecache();
+
 		function youtube(i){
 			if(i<tracks.length){
-				var search = artist.textContent + ' ' + encodeURIComponent(tracks[i].replace('/', ' '));
+				var search = encodeURIComponent(data.album.artist) +  ' ' + encodeURIComponent(data.album.name) + ' ' + encodeURIComponent(tracks[i].replace('/', ' '));
 
 				function youtubeListener(){
-					generateYoutube(JSON.parse(this.responseText), i)
+					generateYoutube(JSON.parse(this.responseText), i, false)
 				}
 				var params = {
 					youtube: search
@@ -102,8 +103,45 @@ function generateContent(data) {
 				return;
 			}
 		};
+
+		function youtubecache(){
+			tracks.unshift(data.album.artist + ' ' + data.album.name)
+			console.log(tracks)
+			function youtubeListener(){
+				console.log(this.responseText)
+				if(JSON.parse(this.responseText) === 'youtube'){
+					console.log('hey')
+					tracks.shift()
+					youtube(0)
+				} else {
+					tracks.shift()
+					generateYoutubeCache(JSON.parse(this.responseText))
+				}
+				// generateYoutube(JSON.parse(this.responseText), i)
+			}
+			var params = {
+				youtubecache: tracks
+			}
+			var xhr = new XMLHttpRequest();
+			xhr.onload = youtubeListener;
+			xhr.open('POST', '/api');
+			xhr.setRequestHeader('Content-Type', 'application/json');
+			xhr.send(JSON.stringify(params));
+		}
+
+		function generateYoutubeCache(data){
+			var youtubeSongs = {}
+			data.forEach((i) => {
+				console.log(tracks)
+				console.log(i.split('+')[0])
+				var index = tracks.indexOf(i.split('+')[0])
+				var id = i.split('+')[1]
+				generateYoutube(id, index, true)
+			})
+		}
+
 			var id = [];
-			function generateYoutube(data, i) {
+			function generateYoutube(data, i, cache) {
 				if(data === 'notfound'){
 					trackName.item(i).innerHTML = tracks[i] + '<button id="yt" class="ui small basic grey disabled button">Listen</button>';
 					id.push(undefined);
@@ -111,7 +149,9 @@ function generateContent(data) {
 					trackName.item(i).innerHTML = tracks[i] + '<a target="_blank" id="yt" class="ui small basic blue button" href="https://www.youtube.com/watch?v=' + data + '">Listen</a>'
 					id.push(data)
 				}
-				youtube(id.length)
+				if(cache === false){
+					youtube(id.length)
+				}
 				if(id.length === tracks.length){
 					var cleanId = [];
 					for(var i=0; i<id.length;i++){
