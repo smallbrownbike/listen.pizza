@@ -106,11 +106,8 @@ function generateContent(data) {
 
 		function youtubecache(){
 			tracks.unshift(data.album.artist + ' ' + data.album.name)
-			console.log(tracks)
 			function youtubeListener(){
-				console.log(this.responseText)
 				if(JSON.parse(this.responseText) === 'youtube'){
-					console.log('hey')
 					tracks.shift()
 					youtube(0)
 				} else {
@@ -132,8 +129,6 @@ function generateContent(data) {
 		function generateYoutubeCache(data){
 			var youtubeSongs = {}
 			data.forEach((i) => {
-				console.log(tracks)
-				console.log(i.split('+')[0])
 				var index = tracks.indexOf(i.split('+')[0])
 				var id = i.split('+')[1]
 				generateYoutube(id, index, true)

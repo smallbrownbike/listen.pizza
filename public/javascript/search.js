@@ -130,7 +130,6 @@ function showTopTracks(data){
 	}
 
 	function youtube(i){
-		console.log(tracks)
 		if(i<tracks.length){
 			function youtubeListener(){
 				generateYoutube(JSON.parse(this.responseText), i, false)
@@ -151,11 +150,8 @@ function showTopTracks(data){
 
 	function youtubecache(){
 		tracks.unshift(decodeURIComponent(window.location.pathname.slice(15)))
-		console.log(tracks)
 		function youtubeListener(){
-			console.log(this.responseText)
 			if(JSON.parse(this.responseText) === 'youtube'){
-				console.log('hey')
 				tracks.shift()
 				youtube(0)
 			} else {
