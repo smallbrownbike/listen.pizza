@@ -8,6 +8,7 @@ const express = require('express'),
 			User = require('./models/user'),
 			app = express(),
 			passport = require('passport'),
+			redis = require('redis'),
 			LocalStrategy = require('passport-local');
 
 mongoose.connect(process.env.MONGO);
@@ -19,6 +20,8 @@ app.use(methodOverride('_method'));
 
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
+
+client = redis.createClient(process.env.REDIS_URL);
 
 //passport config
 app.use(require('express-session')({
@@ -191,13 +194,28 @@ app.post('/api', isLoggedIn, (req, res) => {
 		});
 	}
 	if(req.body.youtube){
-		request('https://www.googleapis.com/youtube/v3/search?q=' + req.body.youtube + '&maxResults=1&part=snippet&key=' + process.env.YOUKEY, function (error, response, body) {
-			if(error){
-				console.log(error)
+		client.get(req.body.youtube, (err, reply) => {
+			if(err){
+				console.log(err)
+			} else if(reply){
+				res.send(reply)
 			} else {
-				res.send(body);
+				request('https://www.googleapis.com/youtube/v3/search?q=' + req.body.youtube + '&maxResults=1&part=snippet&key=' + process.env.YOUKEY, function (error, response, body) {
+					if(error){
+						console.log(error)
+					} else {
+						body = JSON.parse(body)
+						if(body.items[0].id.kind !== 'youtube#video'){
+							res.send(JSON.stringify('notfound'))
+						} else {
+							client.set(req.body.youtube, JSON.stringify(body.items[0].id.videoId))
+							res.send(JSON.stringify(body.items[0].id.videoId));
+						}
+					}
+				});
 			}
-		});
+		})
+		
 	}
 })
 

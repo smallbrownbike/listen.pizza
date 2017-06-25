@@ -104,12 +104,12 @@ function generateContent(data) {
 		};
 			var id = [];
 			function generateYoutube(data, i) {
-				if(data.items[0].id.kind !== 'youtube#video'){
+				if(data === 'notfound'){
 					trackName.item(i).innerHTML = tracks[i] + '<button id="yt" class="ui small basic grey disabled button">Listen</button>';
 					id.push(undefined);
 				} else {
-					trackName.item(i).innerHTML = tracks[i] + '<a target="_blank" id="yt" class="ui small basic blue button" href="https://www.youtube.com/watch?v=' + data.items[0].id.videoId + '">Listen</a>'
-					id.push(data.items[0].id.videoId)
+					trackName.item(i).innerHTML = tracks[i] + '<a target="_blank" id="yt" class="ui small basic blue button" href="https://www.youtube.com/watch?v=' + data + '">Listen</a>'
+					id.push(data)
 				}
 				youtube(id.length)
 				if(id.length === tracks.length){
