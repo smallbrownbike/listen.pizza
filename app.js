@@ -96,7 +96,7 @@ app.get('/search', isLoggedIn, (req, res) => {
 	res.render('search');
 })
 
-app.get('/search/artist', isLoggedIn, (req, res) => {
+app.get('/artist', isLoggedIn, (req, res) => {
 	res.render('search');
 })
 
@@ -105,7 +105,7 @@ app.get('/artist/:query', isLoggedIn, (req, res) => {
 })
 
 app.get('/album', isLoggedIn, (req, res) => {
-	res.redirect('/artist/search');
+	res.render('search');
 })
 
 app.get('/album/:name', isLoggedIn, (req, res) => {
