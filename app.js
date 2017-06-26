@@ -96,6 +96,14 @@ app.get('/search', isLoggedIn, (req, res) => {
 	res.render('search');
 })
 
+app.get('/tag', isLoggedIn, (req, res) => {
+		res.render('searchTags');
+	})
+
+app.get('/tag/:query', isLoggedIn, (req, res) => {
+	res.render('searchTags');
+})
+
 app.get('/artist', isLoggedIn, (req, res) => {
 	res.render('search');
 })
@@ -124,6 +132,7 @@ app.get('/album/:name', isLoggedIn, (req, res) => {
 			res.render('showAlbum')
 		}		
 	})
+
 })
 
 ///auth routes
@@ -163,6 +172,33 @@ app.post('/api', isLoggedIn, (req, res) => {
 				res.send(body);
 			}
 		});
+	}
+	if(req.body.tagInfo){
+		request('http://ws.audioscrobbler.com/2.0/?method=tag.getinfo&tag=' + req.body.tagInfo + '&api_key=' + process.env.LASTKEY + '&format=json', function (err, response, body) {
+			if(err){
+				console.log(err)
+			} else {
+				res.send(body)
+			}
+		})
+	}
+	if(req.body.tagArtist){
+		request('http://ws.audioscrobbler.com/2.0/?method=tag.gettopartists&tag=' + req.body.tagArtist + '&api_key=' + process.env.LASTKEY + '&format=json', function (err, response, body) {
+			if(err){
+				console.log(err)
+			} else {
+				res.send(body)
+			}
+		})
+	}
+	if(req.body.tagAlbum){
+		request('http://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums&tag=' + req.body.tagAlbum + '&api_key=' + process.env.LASTKEY + '&format=json', function (err, response, body) {
+			if(err){
+				console.log(err)
+			} else {
+				res.send(body)
+			}
+		})
 	}
 	if(req.body.similarRandom){
 		request('https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=' + req.body.similarRandom +  '&limit=20&api_key=' + process.env.LASTKEY + '&format=json', function (error, response, body) {
