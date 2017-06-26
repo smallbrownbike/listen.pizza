@@ -45,7 +45,7 @@ for(var i = 0; i<imageContainer.length; i++){
 ///artist link
 for(var i = 0; i<artistLink.length; i++){
 	var artist = encodeURIComponent(cardArtist.item(i).textContent).replace(/[!'()*]/g, escape);
-	artistLink.item(i).setAttribute('href', 'artist/search/' + artist);
+	artistLink.item(i).setAttribute('href', 'search/artist/' + artist);
 }
 
 if(!albumList.innerHTML.trim()){
@@ -112,7 +112,7 @@ if(!albumList.innerHTML.trim()){
 							for(var i=0;i<results.length;i++){
 								var trashId = results[i][4];
 								
-								albumList.innerHTML += "<div id='card' class='card'><a class='image' id='imageContainer' href=\'/album/" + encodeURIComponent(results[i][0]).replace(/[!'()*]/g, escape) + "+" + encodeURIComponent(results[i][1]).replace(/[!'()*]/g, escape) + "\'><img id='image' class='img' title='" + results[i][1] + "' src='" + results[i][2] + "'></a><div id='cardInfo' class='ui center aligned container'><a id='artistLink' href='artist/search/" + encodeURIComponent(results[i][0]).replace(/[!'()*]/g, escape) + "'><h4 id='cardArtist'>" + results[i][0] + "</h4></a><h7 id='title'>" + results[i][1] + "</h7></div><form id='trash' action='/collection/" + trashId + "?_method=DELETE' method='POST'><button id='invisButton' class='ui mini red button'>Delete</button></form></div>"		 
+								albumList.innerHTML += "<div id='card' class='card'><a class='image' id='imageContainer' href=\'/album/" + encodeURIComponent(results[i][0]).replace(/[!'()*]/g, escape) + "+" + encodeURIComponent(results[i][1]).replace(/[!'()*]/g, escape) + "\'><img id='image' class='img' title='" + results[i][1] + "' src='" + results[i][2] + "'></a><div id='cardInfo' class='ui center aligned container'><a id='artistLink' href='search/artist/" + encodeURIComponent(results[i][0]).replace(/[!'()*]/g, escape) + "'><h4 id='cardArtist'>" + results[i][0] + "</h4></a><h7 id='title'>" + results[i][1] + "</h7></div><form id='trash' action='/collection/" + trashId + "?_method=DELETE' method='POST'><button id='invisButton' class='ui mini red button'>Delete</button></form></div>"		 
 							};
 							detect();
 						}
@@ -144,7 +144,7 @@ if(!albumList.innerHTML.trim()){
 	var sortedByArtist = '';
 	for(var i=0;i<artists.length;i++){
 		var sorted = sortArtists.sort()
-		sortedByArtist += "<div id='card' class='card'><a class='image' id='imageContainer' href=\'/album/" + encodeURIComponent(sorted[i][0]).replace(/[!'()*]/g, escape) + "+" + encodeURIComponent(sorted[i][1]).replace(/[!'()*]/g, escape) + "\'><img id='image' class='img' title='" + sorted[i][1] + "' src='" + sorted[i][2] + "'></a><div id='cardInfo' class='ui center aligned container'><a id='artistLink' href='artist/search/" + encodeURIComponent(sorted[i][0]).replace(/[!'()*]/g, escape) + "'><h4 id='cardArtist'>" + sorted[i][0] + "</h4></a><h7 id='title'>" + sorted[i][1] + "</h7></div><form id='trash' action='/collection/" + sorted[i][4] + "?_method=DELETE' method='POST'><button id='invisButton' class='ui mini red button'>Delete</button></form></div>"					 
+		sortedByArtist += "<div id='card' class='card'><a class='image' id='imageContainer' href=\'/album/" + encodeURIComponent(sorted[i][0]).replace(/[!'()*]/g, escape) + "+" + encodeURIComponent(sorted[i][1]).replace(/[!'()*]/g, escape) + "\'><img id='image' class='img' title='" + sorted[i][1] + "' src='" + sorted[i][2] + "'></a><div id='cardInfo' class='ui center aligned container'><a id='artistLink' href='search/artist/" + encodeURIComponent(sorted[i][0]).replace(/[!'()*]/g, escape) + "'><h4 id='cardArtist'>" + sorted[i][0] + "</h4></a><h7 id='title'>" + sorted[i][1] + "</h7></div><form id='trash' action='/collection/" + sorted[i][4] + "?_method=DELETE' method='POST'><button id='invisButton' class='ui mini red button'>Delete</button></form></div>"					 
 	};
 
 	artistSort.addEventListener('click', (e) => {

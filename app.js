@@ -92,15 +92,15 @@ app.delete('/collection/:id', isLoggedIn, (req, res) => {
 	
 
 ///search routes
-app.get('/artist', isLoggedIn, (req, res) => {
-	res.redirect('/artist/search');
-})
-
-app.get('/artist/search', isLoggedIn, (req, res) => {
+app.get('/search', isLoggedIn, (req, res) => {
 	res.render('search');
 })
 
-app.get('/artist/search/:query', isLoggedIn, (req, res) => {
+app.get('/search/artist', isLoggedIn, (req, res) => {
+	res.render('search');
+})
+
+app.get('/search/artist/:query', isLoggedIn, (req, res) => {
 	res.render('search');
 })
 
