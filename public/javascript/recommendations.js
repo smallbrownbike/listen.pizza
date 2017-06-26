@@ -28,7 +28,7 @@ if(artists.length > 10){
       var similarArtist = similar[randomSimilarNumber];
       if(artists.indexOf(similarArtist.name) < 0){
         listened.textContent = similarArtist.name;
-        listened.setAttribute('href', 'search/artist/' + encodeURIComponent(similarArtist.name.replace(/[!'()*]/g, escape)));
+        listened.setAttribute('href', '/artist/' + encodeURIComponent(similarArtist.name.replace(/[!'()*]/g, escape)));
       } else {
         checkRandom()
       }

@@ -100,7 +100,7 @@ app.get('/search/artist', isLoggedIn, (req, res) => {
 	res.render('search');
 })
 
-app.get('/search/artist/:query', isLoggedIn, (req, res) => {
+app.get('/artist/:query', isLoggedIn, (req, res) => {
 	res.render('search');
 })
 

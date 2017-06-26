@@ -38,7 +38,7 @@ function topAlbumsListener(){
 	showTopAlbums(JSON.parse(this.responseText))
 }
 var params = {
-	topAlbums: window.location.pathname.slice(15)
+	topAlbums: window.location.pathname.slice(8)
 }
 var xhr = new XMLHttpRequest();
 xhr.onload = topAlbumsListener;
@@ -99,7 +99,7 @@ function topTracksListener(){
 	showTopTracks(JSON.parse(this.responseText))
 }
 var params = {
-	topTracks: window.location.pathname.slice(15)
+	topTracks: window.location.pathname.slice(8)
 }
 var xhr = new XMLHttpRequest();
 xhr.onload = topTracksListener;
@@ -135,7 +135,7 @@ function showTopTracks(data){
 				generateYoutube(JSON.parse(this.responseText), i, false)
 			}
 			var params = {
-				youtube: window.location.pathname.slice(15) + ' ' + encodeURIComponent(tracks[i])
+				youtube: window.location.pathname.slice(8) + ' ' + encodeURIComponent(tracks[i])
 			}
 			var xhr = new XMLHttpRequest();
 			xhr.onload = youtubeListener;
@@ -149,7 +149,7 @@ function showTopTracks(data){
 
 
 	function youtubecache(){
-		tracks.unshift(decodeURIComponent(window.location.pathname.slice(15)))
+		tracks.unshift(decodeURIComponent(window.location.pathname.slice(8)))
 		function youtubeListener(){
 			if(JSON.parse(this.responseText) === 'youtube'){
 				tracks.shift()
@@ -214,7 +214,7 @@ function similarListener(){
 	generateBio(arr.artist);
 }
 var params = {
-	similar: window.location.pathname.slice(15)
+	similar: window.location.pathname.slice(8)
 }
 var xhr = new XMLHttpRequest();
 xhr.onload = similarListener;
@@ -243,7 +243,7 @@ function generateSimilar(data){
 			var image = 'https://s-media-cache-ak0.pinimg.com/originals/b8/9d/17/b89d17a8d96248e8ce344de075372c24.jpg'
 		}
 		var name = i.name;
-		similarArtistColumns.innerHTML += "<div id='similarArtistColumn' class='column'><div id='similarArtistCard' class='ui card'><a id='imageContainer' href='search/artist/" + encodeURIComponent(name.replace('/', ' ')) + "' class='image'><img id='similarImage' src='" + image + "'><div id='similarArtistContainer' class='ui text container'><div id='similarArtistName'>" + name + "</div></div></a></div></div>";
+		similarArtistColumns.innerHTML += "<div id='similarArtistColumn' class='column'><div id='similarArtistCard' class='ui card'><a id='imageContainer' href='/artist/" + encodeURIComponent(name.replace('/', ' ')) + "' class='image'><img id='similarImage' src='" + image + "'><div id='similarArtistContainer' class='ui text container'><div id='similarArtistName'>" + name + "</div></div></a></div></div>";
 
 	})
 	similarArtistDiv.style.display = 'block';
