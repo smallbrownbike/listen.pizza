@@ -47,7 +47,6 @@ xhr.setRequestHeader('Content-Type', 'application/json');
 xhr.send(JSON.stringify(params));
 
 function showTopAlbums(data){
-	pageTitle.textContent = data.topalbums['@attr'].artist;
 	var html = ''
 	
 	for(var i=0;i<4;i++){
@@ -223,7 +222,6 @@ xhr.setRequestHeader('Content-Type', 'application/json');
 xhr.send(JSON.stringify(params));
 
 function generateBio(data){
-	
 	if(data.image[3]['#text']){
 		var image = data.image[3]['#text'];
 		} else {
@@ -232,7 +230,10 @@ function generateBio(data){
 	var name = data.name;
 	var bio = data.bio.summary;
 	
-	artistBio.innerHTML = "<div class='ui circular image'><img src='" + image + "'></div><div class='ui text container'><h1 id='artistTitle'>" + name + "</h1><div class='ui fitted divider'></div></div><div id='artistSummary' class='ui text container'>" + bio + "</div>"
+	artistBio.innerHTML = "<div class='ui circular image'><img src='" + image + "'></div><div class='ui text container'><h1 id='artistTitle'>" + name + "</h1><div class='ui fitted divider'></div></div><div id='artistSummary' class='ui text container'>" + bio + "</div><div id='tags' class='ui center aligned container'></div>"
+	data.tags.tag.forEach((i) => {
+		tags.innerHTML += '<a id="tag" href="/tag/' + encodeURIComponent(i.name) + '" class="ui tag label">' + i.name + '</a>'
+	})
 }
 
 function generateSimilar(data){

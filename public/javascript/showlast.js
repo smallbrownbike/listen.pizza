@@ -63,7 +63,7 @@ function generateContent(data) {
 	image.innerHTML = '<img class="ui image" src="' + img + '">';
 	bg.style.backgroundImage = 'url(' + img + ')';
 	data.album.tags.tag.forEach((i) => {
-		tags.innerHTML += '<a target="_blank" id="tag" href="' + i.url + '" class="ui tag label">' + i.name + '</a>'
+		tags.innerHTML += '<a id="tag" href="/tag/' + encodeURIComponent(i.name) + '" class="ui tag label">' + i.name + '</a>'
 	})
 	if(data.album.wiki){
 		summary = data.album.wiki.summary;

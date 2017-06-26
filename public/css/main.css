@@ -217,10 +217,17 @@ body{
 	
 	display: inline;
 }
+#expandAlbum{
+	
+	display: inline;
+}
 #songs{
 	display: inline;
 }
 .expand{
+	cursor: pointer;
+}
+.expandArtist{
 	cursor: pointer;
 }
 .column{
@@ -287,6 +294,12 @@ body{
 #artistSummary{
 	width: 100%;
 	margin-top: 10px;
+}
+#tagInfo{
+	margin-top: 10px;
+}
+#tagName{
+	font-size: 4em;
 }
 
 .ui.vertical.segment{
