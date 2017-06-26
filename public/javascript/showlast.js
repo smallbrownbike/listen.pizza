@@ -54,7 +54,7 @@ function generateContent(data) {
 			xhr.send(JSON.stringify(params));
 		})
 	}
-	artist.innerHTML = '<a href="/artist/search/' + encodeURIComponent(data.album.artist) + '">' + data.album.artist + '</a> - ';
+	artist.innerHTML = '<a href="/artist/' + encodeURIComponent(data.album.artist) + '">' + data.album.artist + '</a> - ';
 	album.textContent = data.album.name;
 	
 	title.textContent = artist.textContent + album.textContent;
