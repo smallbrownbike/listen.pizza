@@ -308,9 +308,9 @@ function isLoggedInLogin(req, res, next){
 	}
 }
 
-app.listen(process.env.PORT, process.env.IP, function(){
-	console.log('Server running')
-});
-// app.listen('3000', function(){
+// app.listen(process.env.PORT, process.env.IP, function(){
 // 	console.log('Server running')
 // });
+app.listen('3000', function(){
+	console.log('Server running')
+});
