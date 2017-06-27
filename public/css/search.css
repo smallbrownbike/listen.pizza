@@ -1,4 +1,4 @@
-@media only screen and (max-width: 650px){
+@media only screen and (max-width: 767px){
 
 	.ui.table:not(.unstackable) tr > th, .ui.table:not(.unstackable) tr:not(:first-child) > td{
 		border-top: 1px solid rgba(34, 36, 38, 0.1) !important;
@@ -15,7 +15,7 @@
 	
 }
 
-@media only screen and (max-width: 650px){
+@media only screen and (max-width: 767px){
 	#similarArtistColumn:last-child{
 		display: none;
 	}

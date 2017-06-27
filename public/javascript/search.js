@@ -17,7 +17,7 @@ var yt;
 
 /// media query
 if (matchMedia) {
-  var mq = window.matchMedia("(min-width: 650px)");
+  var mq = window.matchMedia("(min-width: 767px)");
   mq.addListener(WidthChange);
   WidthChange(mq);
 }
