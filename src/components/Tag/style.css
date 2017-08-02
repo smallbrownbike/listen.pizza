@@ -1,0 +1,15 @@
+.pb{
+  padding-bottom: 1em !important;
+}
+.lt{
+  font-size: 4em !important;
+}
+.p1{
+  padding: 1em;
+}
+@media only screen and (max-width: 650px){
+
+  .ui[class*="four column"].grid>.column:not(.row), .ui[class*="two column"].grid>.row>.column{
+    width: 50%;
+  }
+}
