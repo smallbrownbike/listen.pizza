@@ -1,0 +1,15 @@
+
+.ui.form .message:first-child{
+  margin-bottom: 1rem !important;
+}
+.error{
+  display: block !important;
+}
+.lm.ui.container{
+  padding-top: 75px;
+}
+@media only screen and (min-width: 767px){
+  .lm.ui.container{
+    max-width: 400px !important;
+  }
+}
