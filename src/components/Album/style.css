@@ -1,0 +1,43 @@
+.w600{
+  width: 600px !important;
+}
+.w100{
+  width: 100% !important;
+}
+.mb15{
+  margin-bottom: 15px !important;
+}
+.p{
+  padding: .5em !important;
+}
+.mtba{
+  margin: auto 0px !important;
+}
+.f{
+  font-size: 1.5em !important;
+}
+img{
+  border-radius: 5px;
+}
+a.ui.tag.label{
+  margin-top: .5em !important;
+}
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 2s linear;
+}
+.hide {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 100ms, opacity 100ms linear;
+}
+.hidden{
+  display: none !important;
+}
+button:active{
+  background: rgba(34, 36, 38, 0.1) !important;
+}
+.default{
+  cursor: default !important;
+}
