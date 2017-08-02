@@ -1,0 +1,109 @@
+.ui.card{
+  overflow: hidden !important
+}
+.pt{
+  padding-top: 45px !important;
+}
+.mgone.boxgone.ui.card{
+  width: auto !important;
+}
+.right{
+  float: right;
+}
+.pmgone{
+  margin: 0px !important;
+  padding: 0px !important;
+}
+.mgone{
+  margin: 0px !important;
+}
+.mtgone{
+  margin-top: 0px !important;
+}
+.pgone{
+  padding: 0px !important;
+}
+.bgone{
+  border-radius: 0px !important;
+}
+.boxgone{
+  box-shadow: 0px 0px 0px 0px !important;
+}
+.inlineblock{
+  display: inline-block !important;
+}
+.mt{
+  margin-top: 1rem !important;
+}
+.mb{
+  margin-bottom: .2rem !important;
+}
+.m{
+  margin: .5rem !important;
+}
+.fw{
+  font-weight: 100 !important;
+}
+.similarBandName{
+  font-size: 1.5em !important;
+  color: white;
+  position: absolute;
+  bottom: 0px;
+  text-shadow: 1px 1px black;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  padding-left: 7px !important;
+}
+.similarBandImage:hover .similarBandName{
+  text-decoration: underline !important;
+}
+.ui.text.container{
+  width: 100%;
+}
+.bg{
+  display: block;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  filter:blur(8px);  
+}
+.pointer{
+  cursor: pointer;
+}
+
+
+@media only screen and (max-width: 767px){
+  .ui.container:not(.lm) {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+  .mgone.ui.table:not(.unstackable) tr > td:last-child {
+    display: none !important;
+  }
+  .fw{
+    font-weight: 100 !important;
+  }
+  
+}
+@media only screen and (max-width: 650px){
+  .column.similar:nth-child(5){
+    display: none !important;
+  }
+  .ui[class*="five column"].grid>.column:not(.row), .ui[class*="two column"].grid>.row>.column{
+    width: 50%;
+  }
+  .ui.four.cards>.card{
+    width: calc(50% - 1.5em)
+  }.ui.five.cards>.card{
+    width: calc(50% - 1.5em)
+  }
+}
+
+
