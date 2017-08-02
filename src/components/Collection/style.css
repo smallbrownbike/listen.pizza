@@ -1,0 +1,26 @@
+body{
+  background-color: #f6f6f6;
+}
+.blue{
+  color: #4183C4;
+}
+.m2{
+  margin: 2rem !important;
+}
+.fr{
+  float: right !important;
+}
+.red{
+  color: red;
+}
+.tbgone{
+  border-top-right-radius: 0px !important;
+  border-top-left-radius: 0px !important;
+}
+.card{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2) !important;
+  transition: 0.3s !important;
+}
+.card:hover{
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2) !important;
+}
