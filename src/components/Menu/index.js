@@ -35,7 +35,7 @@ export default class Menu extends React.Component {
       var albums = []
       var checkArtists = []
       var token = JSON.parse(localStorage.getItem('login')).token;
-      fetch('/api/collection', {method: 'GET', headers: {Authorization: 'Bearer ' + token}})
+      fetch('/api/collection', {method: 'POST', headers: {Authorization: 'Bearer ' + token}})
       .then(response => response.json())
       .then(json => {
         this.setState({invites: json.invites})
