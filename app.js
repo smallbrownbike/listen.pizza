@@ -164,10 +164,10 @@ app.post('/api/forgot', (req, res) => {
 				if(err){
 					console.log(err)
 				} else {
-					var fromEmail = new helper.Email('noreply@tunedout.herokuapp.com');
+					var fromEmail = new helper.Email('noreply@listen.pizza');
 					var toEmail = new helper.Email(req.body.username);
 					var subject = 'Password reset request';
-					var content = new helper.Content('text/html', 'Hey, ' + user.name + '!<p>We received a request to reset the password on your TunedOut account.</p><p>If you didn\'t initiate this request, please disregard this email.</p><p>Otherwise, <a href="https://tunedout.herokuapp.com/reset/' + token + '">please click here to reset your password.</a></p><p>This link will be valid for 1 hour.</p>');
+					var content = new helper.Content('text/html', 'Hey, ' + user.name + '!<p>We received a request to reset the password on your listen.pizza account.</p><p>If you didn\'t initiate this request, please disregard this email.</p><p>Otherwise, <a href="https://tunedout.herokuapp.com/reset/' + token + '">please click here to reset your password.</a></p><p>This link will be valid for 1 hour.</p>');
 					var mail = new helper.Mail(fromEmail, subject, toEmail, content);
 					var request = sg.emptyRequest({
 						method: 'POST',
@@ -241,10 +241,10 @@ app.post('/api/invite', expressJwt({secret: process.env.JWTSECRET}), (req, res) 
 										if(err){
 											console.log(err)
 										} else {
-											var fromEmail = new helper.Email('noreply@tunedout.herokuapp.com');
+											var fromEmail = new helper.Email('noreply@listen.pizza');
 											var toEmail = new helper.Email(req.body.email);
 											var subject = 'You\'re in!';
-											var content = new helper.Content('text/html', 'You\'ve been invited to TunedOut, a free music library powered by YouTube and Last.fm.<p><a href="http://tunedout.herokuapp.com/register/invite/' + uuid + '">Click here to create your free account</a></p><p>This invite will expire in 24 hours.</p>');
+											var content = new helper.Content('text/html', 'You\'ve been invited to listen.pizza, a free music library powered by YouTube and Last.fm.<p><a href="http://tunedout.herokuapp.com/register/invite/' + uuid + '">Click here to create your free account</a></p><p>This invite will expire in 24 hours.</p>');
 											var mail = new helper.Mail(fromEmail, subject, toEmail, content);
 											var request = sg.emptyRequest({
 												method: 'POST',
